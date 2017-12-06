@@ -113,7 +113,6 @@ DISTRO_FEATURES_OBMC = " \
         "
 
 DISTRO_FEATURES_DEFAULT = " \
-        avahi \
         pam \
         slp \
         systemd \
