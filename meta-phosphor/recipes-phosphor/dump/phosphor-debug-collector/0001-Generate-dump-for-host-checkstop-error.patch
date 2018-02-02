@@ -1,0 +1,84 @@
+From d7ab500239a56a604343e448c6a164d15e0c41d8 Mon Sep 17 00:00:00 2001
+From: Marri Devender Rao <devenrao@in.ibm.com>
+Date: Tue, 19 Dec 2017 03:15:02 -0600
+Subject: [PATCH 1/1] Generate dump for host checkstop error
+
+Change-Id: I86b5cd77276e5292121b340f40c653320b2bf7fd
+Signed-off-by: Marri Devender Rao <devenrao@in.ibm.com>
+---
+ dump_manager.cpp                                        |  3 ++-
+ elog_watch.cpp                                          | 15 ++++++++++++---
+ xyz/openbmc_project/Dump/Internal/Create.interface.yaml |  3 +++
+ 3 files changed, 17 insertions(+), 4 deletions(-)
+
+diff --git a/dump_manager.cpp b/dump_manager.cpp
+index 4d0904c..08aea53 100644
+--- a/dump_manager.cpp
++++ b/dump_manager.cpp
+@@ -45,7 +45,8 @@ uint32_t Manager::captureDump(
+     static const std::map<Type, std::string> typeMap =
+                                {{Type::ApplicationCored, "core"},
+                                 {Type::UserRequested, "user"},
+-                                {Type::InternalFailure, "elog"}};
++                                {Type::InternalFailure, "elog"},
++                                {Type::HostCheckstop, "elog"}};
+ 
+     //Get Dump size.
+     auto size = getAllowedSize();
+diff --git a/elog_watch.cpp b/elog_watch.cpp
+index 6cb7a0f..99750e8 100644
+--- a/elog_watch.cpp
++++ b/elog_watch.cpp
+@@ -21,6 +21,8 @@ using namespace phosphor::logging;
+ constexpr auto LOG_PATH = "/xyz/openbmc_project/logging";
+ constexpr auto INTERNAL_FAILURE =
+     "xyz.openbmc_project.Common.Error.InternalFailure";
++constexpr auto HOST_CHECKSTOP =
++    "org.open_power.Host.Boot.Error.Checkstop";
+ using Message = std::string;
+ using Attributes = sdbusplus::message::variant<Message>;
+ using AttributeName = std::string;
+@@ -105,9 +107,9 @@ void Watch::addCallback(sdbusplus::message::message& msg)
+         return;
+     }
+ 
+-    if (data != INTERNAL_FAILURE)
++    if ( data != INTERNAL_FAILURE && data != HOST_CHECKSTOP)
+     {
+-        //Not a InternalFailure, skip
++        //Not a InternalFailure or host checkstop, skip
+         return;
+     }
+ 
+@@ -123,7 +125,14 @@ void Watch::addCallback(sdbusplus::message::message& msg)
+         phosphor::dump::elog::serialize(elogList);
+ 
+         //Call internal create function to initiate dump
+-        iMgr.IMgr::create(Type::InternalFailure, fullPaths);
++        if (data == HOST_CHECKSTOP)
++        {
++            iMgr.IMgr::create(Type::HostCheckstop, fullPaths);
++        }
++        else
++        {
++            iMgr.IMgr::create(Type::InternalFailure, fullPaths);
++        }
+     }
+     catch (QuotaExceeded& e)
+     {
+diff --git a/xyz/openbmc_project/Dump/Internal/Create.interface.yaml b/xyz/openbmc_project/Dump/Internal/Create.interface.yaml
+index bb4a74f..e5cbbcb 100644
+--- a/xyz/openbmc_project/Dump/Internal/Create.interface.yaml
++++ b/xyz/openbmc_project/Dump/Internal/Create.interface.yaml
+@@ -34,5 +34,8 @@ enumerations:
+         - name: InternalFailure
+           description: >
+               Dump triggered due to InternalFailure type error commit.
++        - name: HostCheckstop
++          description: >
++              Dump triggered due to host Checkstop type error commit.
+ 
+ # vim: tabstop=8 expandtab shiftwidth=4 softtabstop=4
+-- 
+1.8.2.2
+
