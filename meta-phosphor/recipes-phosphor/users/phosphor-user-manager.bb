@@ -13,23 +13,30 @@ DEPENDS += "sdbusplus"
 DEPENDS += "phosphor-logging"
 DEPENDS += "phosphor-dbus-interfaces"
 DEPENDS += "boost"
+DEPENDS += "nss-pam-ldapd"
+PACKAGE_BEFORE_PN = "phosphor-ldap"
 RDEPENDS_${PN} += "libsystemd"
 RDEPENDS_${PN} += "phosphor-logging"
 RDEPENDS_${PN} += "bash"
 
 inherit useradd
 
-USERADD_PACKAGES = "${PN}"
+USERADD_PACKAGES = "${PN} phosphor-ldap"
+DBUS_PACKAGES = "${USERADD_PACKAGES}"
 # add groups needed for privilege maintenance
 GROUPADD_PARAM_${PN} = "priv-admin; priv-operator; priv-user; priv-callback; web; redfish "
 GROUPADD_PARAM_phosphor-ldap = "priv-admin; priv-operator; priv-user; priv-callback "
 DBUS_SERVICE_${PN} += "xyz.openbmc_project.User.Manager.service"
-
+FILES_phosphor-ldap += " \
+        ${sbindir}/phosphor-ldap-conf \
+"
+DBUS_SERVICE_phosphor-ldap = "xyz.openbmc_project.Ldap.Config.service"
 #SRC_URI += "git://github.com/openbmc/phosphor-user-manager"
 #SRCREV = "7ba3c71cb31c6316e364d1c3c8abde249a6724d1"
 SRC_URI += "file://add_groups_workaround.sh"
 SRC_URI += "git://github.com/geissonator/phosphor-user-manager;branch=ldap"
 SRCREV = "ccd7bfde384eb4dd038eb7c9ba304ec8aba98691"
+
 S = "${WORKDIR}/git"
 
 do_install_append() {
