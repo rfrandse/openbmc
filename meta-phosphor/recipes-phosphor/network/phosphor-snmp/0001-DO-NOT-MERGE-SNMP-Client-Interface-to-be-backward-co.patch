@@ -1,0 +1,241 @@
+From e128b0116708364abe12227b6daf419d74f81fce Mon Sep 17 00:00:00 2001
+From: Ratan Gupta <ratagupt@in.ibm.com>
+Date: Mon, 17 Sep 2018 18:09:46 +0530
+Subject: [PATCH 1/1] DO-NOT-MERGE: SNMP Client Interface to be backward
+ compatible
+
+Latest master having the SNMP client interface which has two parameter
+1) IPaddress 2) port
+In GHE we are using three parameter client interface
+1) IPaddress 2) port 3) addressType.
+so this commit is introduced to have the backward compatibility with GHE.
+
+Change-Id: I9832896f8aedaffeda8ebbac52e2c6f2263b1f7f
+Signed-off-by: Ratan Gupta <ratagupt@in.ibm.com>
+---
+ snmp_client.cpp                                          |  4 +++-
+ snmp_client.hpp                                          |  3 ++-
+ snmp_conf_manager.cpp                                    |  5 +++--
+ snmp_conf_manager.hpp                                    |  7 ++++++-
+ snmp_serialize.cpp                                       |  9 +++++++--
+ test/test_snmp_conf_manager.cpp                          | 15 ++++++++-------
+ test/test_snmp_serialize.cpp                             |  3 ++-
+ xyz/openbmc_project/Network/Client/Create.interface.yaml |  4 ++++
+ 8 files changed, 35 insertions(+), 15 deletions(-)
+
+diff --git a/snmp_client.cpp b/snmp_client.cpp
+index 4049e2d..dd86b58 100644
+--- a/snmp_client.cpp
++++ b/snmp_client.cpp
+@@ -9,12 +9,14 @@ namespace snmp
+ {
+ 
+ Client::Client(sdbusplus::bus::bus& bus, const char* objPath,
+-               ConfManager& parent, const std::string& address, uint16_t port) :
++               ConfManager& parent, const std::string& address, uint16_t port,
++               IPProtocol addressType) :
+     Ifaces(bus, objPath, true),
+     parent(parent)
+ {
+     this->address(address);
+     this->port(port);
++    this->addressFamily(addressType);
+ 
+     // Emit deferred signal.
+     emit_object_added();
+diff --git a/snmp_client.hpp b/snmp_client.hpp
+index fbc76fb..32858eb 100644
+--- a/snmp_client.hpp
++++ b/snmp_client.hpp
+@@ -42,9 +42,10 @@ class Client : public Ifaces
+      *  @param[in] parent - Parent D-bus Object.
+      *  @param[in] address - IPaddress/Hostname.
+      *  @param[in] port - network port.
++     *  @param[in] addressType - Address type(IPv4/IPv6).
+      */
+     Client(sdbusplus::bus::bus &bus, const char *objPath, ConfManager &parent,
+-           const std::string &address, uint16_t port);
++           const std::string &address, uint16_t port, IPProtocol addressType);
+ 
+     /** @brief Constructor to put object onto bus at a dbus path.
+      *  @param[in] bus - Bus to attach to.
+diff --git a/snmp_conf_manager.cpp b/snmp_conf_manager.cpp
+index d2d5d8f..e5a9847 100644
+--- a/snmp_conf_manager.cpp
++++ b/snmp_conf_manager.cpp
+@@ -29,7 +29,8 @@ ConfManager::ConfManager(sdbusplus::bus::bus& bus, const char* objPath) :
+ {
+ }
+ 
+-void ConfManager::client(std::string address, uint16_t port)
++void ConfManager::client(std::string address, uint16_t port,
++                         IPProtocol addressType)
+ {
+     auto clientEntry = this->clients.find(address);
+     if (clientEntry != this->clients.end())
+@@ -55,7 +56,7 @@ void ConfManager::client(std::string address, uint16_t port)
+     objPath /= generateId(address, port);
+ 
+     auto client = std::make_unique<phosphor::network::snmp::Client>(
+-        bus, objPath.string().c_str(), *this, address, port);
++        bus, objPath.string().c_str(), *this, address, port, addressType);
+     // save the D-Bus object
+     serialize(*client, dbusPersistentLocation);
+ 
+diff --git a/snmp_conf_manager.hpp b/snmp_conf_manager.hpp
+index d9164ae..de4287c 100644
+--- a/snmp_conf_manager.hpp
++++ b/snmp_conf_manager.hpp
+@@ -3,6 +3,7 @@
+ #include "snmp_client.hpp"
+ 
+ #include <xyz/openbmc_project/Network/Client/Create/server.hpp>
++#include "xyz/openbmc_project/Network/Client/server.hpp"
+ #include <sdbusplus/bus.hpp>
+ 
+ #include <experimental/filesystem>
+@@ -18,6 +19,8 @@ namespace snmp
+ using IPAddress = std::string;
+ using ClientList = std::map<IPAddress, std::unique_ptr<Client>>;
+ namespace fs = std::experimental::filesystem;
++using IPProtocol =
++    sdbusplus::xyz::openbmc_project::Network::server::Client::IPProtocol;
+ 
+ namespace details
+ {
+@@ -50,8 +53,10 @@ class ConfManager : public details::CreateIface
+     /** @brief Function to create snmp manager details D-Bus object.
+      *  @param[in] address- IP address/Hostname.
+      *  @param[in] port - network port.
++     *  @param[in] addressType - addressType could be Ipv4/Ipv6.
+      */
+-    void client(std::string address, uint16_t port) override;
++    void client(std::string ipaddress, uint16_t port,
++                IPProtocol addressType) override;
+ 
+     /* @brief delete the D-Bus object of the given ipaddress.
+      * @param[in] address - IP address/Hostname.
+diff --git a/snmp_serialize.cpp b/snmp_serialize.cpp
+index 2bc8f84..9f446a3 100644
+--- a/snmp_serialize.cpp
++++ b/snmp_serialize.cpp
+@@ -20,6 +20,9 @@ namespace network
+ namespace snmp
+ {
+ 
++using IPProtocol =
++    sdbusplus::xyz::openbmc_project::Network::server::Client::IPProtocol;
++
+ using namespace phosphor::logging;
+ 
+ /** @brief Function required by Cereal to perform serialization.
+@@ -32,7 +35,7 @@ using namespace phosphor::logging;
+ template <class Archive>
+ void save(Archive& archive, const Client& manager, const std::uint32_t version)
+ {
+-    archive(manager.address(), manager.port());
++    archive(manager.addressFamily(), manager.address(), manager.port());
+ }
+ 
+ /** @brief Function required by Cereal to perform deserialization.
+@@ -47,11 +50,13 @@ void load(Archive& archive, Client& manager, const std::uint32_t version)
+ {
+     std::string ipaddress{};
+     uint16_t port{};
++    IPProtocol addressFamily{};
+ 
+-    archive(ipaddress, port);
++    archive(addressFamily, ipaddress, port);
+ 
+     manager.address(ipaddress);
+     manager.port(port);
++    manager.addressFamily(addressFamily);
+ }
+ 
+ fs::path serialize(const Client& manager, const fs::path& dir)
+diff --git a/test/test_snmp_conf_manager.cpp b/test/test_snmp_conf_manager.cpp
+index a681f21..19b718b 100644
+--- a/test/test_snmp_conf_manager.cpp
++++ b/test/test_snmp_conf_manager.cpp
+@@ -30,9 +30,10 @@ class TestSNMPConfManager : public testing::Test
+         fs::remove_all(manager.dbusPersistentLocation);
+     }
+ 
+-    void createSNMPClient(std::string ipaddress, uint16_t port)
++    void createSNMPClient(std::string ipaddress, uint16_t port,
++                          IPProtocol addressType)
+     {
+-        manager.client(ipaddress, port);
++        manager.client(ipaddress, port, addressType);
+     }
+ 
+     ClientList &getSNMPClients()
+@@ -52,7 +53,7 @@ TEST_F(TestSNMPConfManager, AddSNMPClient)
+ {
+     using namespace sdbusplus::xyz::openbmc_project::Common::Error;
+ 
+-    createSNMPClient("192.168.1.1", 24);
++    createSNMPClient("192.168.1.1", 24, IPProtocol::IPv4);
+ 
+     auto &clients = getSNMPClients();
+     EXPECT_EQ(1, clients.size());
+@@ -64,8 +65,8 @@ TEST_F(TestSNMPConfManager, AddMultipleSNMPClient)
+ {
+     using namespace sdbusplus::xyz::openbmc_project::Common::Error;
+ 
+-    createSNMPClient("192.168.1.1", 24);
+-    createSNMPClient("192.168.1.2", 24);
++    createSNMPClient("192.168.1.1", 24, IPProtocol::IPv4);
++    createSNMPClient("192.168.1.2", 24, IPProtocol::IPv4);
+ 
+     auto &clients = getSNMPClients();
+     EXPECT_EQ(2, clients.size());
+@@ -78,8 +79,8 @@ TEST_F(TestSNMPConfManager, DeleteSNMPClient)
+ {
+     using namespace sdbusplus::xyz::openbmc_project::Common::Error;
+ 
+-    createSNMPClient("192.168.1.1", 24);
+-    createSNMPClient("192.168.1.2", 24);
++    createSNMPClient("192.168.1.1", 24, IPProtocol::IPv4);
++    createSNMPClient("192.168.1.2", 24, IPProtocol::IPv4);
+ 
+     auto &clients = getSNMPClients();
+     EXPECT_EQ(2, clients.size());
+diff --git a/test/test_snmp_serialize.cpp b/test/test_snmp_serialize.cpp
+index 60a51aa..2d182ab 100644
+--- a/test/test_snmp_serialize.cpp
++++ b/test/test_snmp_serialize.cpp
+@@ -39,7 +39,7 @@ class TestSerialize : public testing::Test
+ 
+ TEST_F(TestSerialize, serialize)
+ {
+-    Client client(bus, clientObjPath, manager, "1.1.1.1", 23);
++    Client client(bus, clientObjPath, manager, "1.1.1.1", 23, IPProtocol::IPv4);
+ 
+     auto path = serialize(client, manager.dbusPersistentLocation);
+     Client restoreClient(bus, clientObjPath, manager);
+@@ -48,6 +48,7 @@ TEST_F(TestSerialize, serialize)
+ 
+     EXPECT_EQ("1.1.1.1", restoreClient.address());
+     EXPECT_EQ(23, restoreClient.port());
++    EXPECT_EQ(IPProtocol::IPv4, restoreClient.addressFamily());
+ }
+ 
+ TEST_F(TestSerialize, deserialize_non_existent_file)
+diff --git a/xyz/openbmc_project/Network/Client/Create.interface.yaml b/xyz/openbmc_project/Network/Client/Create.interface.yaml
+index ff45533..7f08108 100644
+--- a/xyz/openbmc_project/Network/Client/Create.interface.yaml
++++ b/xyz/openbmc_project/Network/Client/Create.interface.yaml
+@@ -12,5 +12,9 @@ methods:
+           type: uint16
+           description: >
+               Network port.
++        - name: AddressFamily
++          type: enum[xyz.openbmc_project.Network.Client.IPProtocol]
++          description: >
++              protocol type can be IPv4 or IPv6 etc.
+       errors:
+         - xyz.openbmc_project.Common.Error.InvalidArgument
+-- 
+1.8.3.1
+

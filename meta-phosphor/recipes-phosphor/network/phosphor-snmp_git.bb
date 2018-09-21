@@ -13,6 +13,7 @@ LIC_FILES_CHKSUM = "file://${WORKDIR}/git/LICENSE;md5=86d3f3a95c324c9479bd898696
 
 SRC_URI += "git://github.com/openbmc/phosphor-snmp"
 SRCREV = "aea53d071de925c1aa885dd4fbb9aeec6ab498e1"
+SRC_URI += "file://0001-DO-NOT-MERGE-SNMP-Client-Interface-to-be-backward-co.patch"
 
 DBUS_SERVICE_${PN} += "xyz.openbmc_project.Network.SNMP.service"
 
