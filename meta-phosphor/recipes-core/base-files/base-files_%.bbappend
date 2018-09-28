@@ -1,4 +1,4 @@
-FILESEXTRAPATHS_prepend_df-obmc-ubi-fs := "${THISDIR}/${PN}:"
+FILESEXTRAPATHS_prepend_df-obmc-ubi-fs := "${THISDIR}/${PN}/df-ubi:"
 
 FILESEXTRAPATHS_prepend := "${THISDIR}/${PN}:"
 
