@@ -1,2 +1,2 @@
 RDEPENDS_${PN}-logging += "ibm-logging"
-RDEPENDS_${PN}-extras += "nginx bmcweb sbe-validation"
+RDEPENDS_${PN}-extras += "nginx sbe-validation"
