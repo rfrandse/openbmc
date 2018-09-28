@@ -1,7 +1,7 @@
-From 02cfacbafcf9f2d25e63a902d9a00340379825c1 Mon Sep 17 00:00:00 2001
+From 67a2c179e8bb5434145dde37bdcbed5e454780e2 Mon Sep 17 00:00:00 2001
 From: Eddie James <eajames@us.ibm.com>
 Date: Mon, 27 Aug 2018 15:41:10 -0500
-Subject: [PATCH] Add obmc-ikvm application
+Subject: [PATCH 1/2] Add obmc-ikvm application
 
 Add license, application source code, autotools recipe, and gitignore
 

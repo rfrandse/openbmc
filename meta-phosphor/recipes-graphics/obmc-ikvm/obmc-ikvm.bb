@@ -9,22 +9,12 @@ RDEPENDS_${PN} += "libvncserver sdbusplus phosphor-logging phosphor-dbus-interfa
 SRC_URI = "git://github.com/openbmc/obmc-ikvm"
 SRCREV = "dd2fb3d817585f70b50456f50b5782b82b26223d"
 
-SRC_URI += " file://create_usbhid.sh"
 SRC_URI += " file://0001-Add-obmc-ikvm-application.patch"
+SRC_URI += " file://0002-Add-script-to-instantiate-USB-HID-gadget-device.patch"
 
 PR = "r1"
 PR_append = "+gitr${SRCPV}"
 
 S = "${WORKDIR}/git"
 
-FILES_${PN} += "${sbindir}/create_usbhid.sh"
-
-do_install_append() {
-    install -d ${D}${sbindir}
-    install -m 0755 ${WORKDIR}/create_usbhid.sh ${D}${sbindir}/create_usbhid.sh
-}
-
-SYSTEMD_SERVICE_${PN} += " start-ipkvm.service"
-
 inherit autotools pkgconfig
-inherit obmc-phosphor-systemd
