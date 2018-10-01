@@ -1,4 +1,4 @@
-From 7277545ff8433e6e9e7a7f91b60a76b0b3aecce3 Mon Sep 17 00:00:00 2001
+From fec1b07dade62619b1746e81b9040a41a2d1d24c Mon Sep 17 00:00:00 2001
 From: Adriana Kobylak <anoo@us.ibm.com>
 Date: Mon, 1 Oct 2018 10:27:00 -0500
 Subject: [PATCH] Add IBM Branding
@@ -19,11 +19,11 @@ Change-Id: I66d09c784d549eaf8a7f930a8c3ddce47793dccb
 Signed-off-by: Adriana Kobylak <anoo@us.ibm.com>
 ---
  app/assets/images/logo.svg                  | 51 ++++++++++++++++++++++++++++-
- app/common/directives/app-header.html       |  3 +-
+ app/common/directives/app-header.html       |  4 +--
  app/index.html                              |  2 +-
  app/login/controllers/login-controller.html |  5 +--
  app/login/styles/index.scss                 | 11 +++++++
- 5 files changed, 67 insertions(+), 5 deletions(-)
+ 5 files changed, 67 insertions(+), 6 deletions(-)
 
 diff --git a/app/assets/images/logo.svg b/app/assets/images/logo.svg
 index d0fa158..301f81d 100644
@@ -83,18 +83,19 @@ index d0fa158..301f81d 100644
 +</g>
 +</svg>
 diff --git a/app/common/directives/app-header.html b/app/common/directives/app-header.html
-index 1de2e52..c934178 100644
+index 1de2e52..2824e8a 100644
 --- a/app/common/directives/app-header.html
 +++ b/app/common/directives/app-header.html
-@@ -2,6 +2,7 @@
+@@ -1,7 +1,7 @@
+ <div id="header__wrapper">
    <!-- HEADER -->
    <header id="header">
-     <span class="header__title float-left">OpenBMC</span>
-+    <span class="app__version float-left">BMC System Management {{dataService.app_version}}</span>
+-    <span class="header__title float-left">OpenBMC</span>
++    <span class="header__title float-left">BMC System Management</span>
      <a href="" class="header__logout" ng-click="logout()">Log out</a>
    </header>
    <div class="header__functions-wrapper" role="heading">
-@@ -28,4 +29,4 @@
+@@ -28,4 +28,4 @@
        </button>
      </div>
    </div>
