@@ -1,0 +1,52 @@
+From b271d5144789d7e7ae921f10f1458d227050895f Mon Sep 17 00:00:00 2001
+From: Andrew Geissler <geissonator@yahoo.com>
+Date: Wed, 25 Apr 2018 08:44:47 -0700
+Subject: [PATCH 1/1] Remove activation and fault from hardware view
+
+Displaying the activation and fault associations as a
+part of the hardware view doesn't make a lot of sense.
+
+Testing: Verified Activation no longer showed in GUI and after
+injecting an error, the Fault for it was not shown either.
+
+Resolves openbmc/openbmc#3042
+
+Change-Id: If400242df703f084c0b47421615ff9c70fdfb5a0
+Signed-off-by: Andrew Geissler <geissonator@yahoo.com>
+---
+ app/common/services/api-utils.js | 5 +++++
+ app/common/services/constants.js | 2 ++
+ 2 files changed, 7 insertions(+)
+
+diff --git a/app/common/services/api-utils.js b/app/common/services/api-utils.js
+index 25e4aef..ecdb5ef 100644
+--- a/app/common/services/api-utils.js
++++ b/app/common/services/api-utils.js
+@@ -1333,6 +1333,11 @@ window.angular && (function(angular) {
+ 
+                 title = titlelize(title);
+ 
++                // Check if this hardware is on ignore list
++                if (Constants.HARDWARE.ignore_key_filter.indexOf(title) >= 0) {
++                  continue;
++                }
++
+                 if (!isSubComponent(key)) {
+                   hardwareData.push(Object.assign(
+                       {
+diff --git a/app/common/services/constants.js b/app/common/services/constants.js
+index 9931f01..bcf9224 100644
+--- a/app/common/services/constants.js
++++ b/app/common/services/constants.js
+@@ -51,6 +51,8 @@ window.angular && (function(angular) {
+       PAGINATION: {LOG_ITEMS_PER_PAGE: 25},
+       HARDWARE: {
+         component_key_filter: '/xyz/openbmc_project/inventory/system',
++        // Hardware to ignore and not display
++        ignore_key_filter: ['activation', 'fault'],
+         parent_components: [
+           /xyz\/openbmc_project\/inventory\/system\/chassis\/motherboard\/cpu\d+\//
+         ],
+-- 
+1.8.3.1
+
