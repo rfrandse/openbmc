@@ -36,8 +36,12 @@ SRCREV = "ccd7bfde384eb4dd038eb7c9ba304ec8aba98691"
 DBUS_SERVICE_${PN} += "xyz.openbmc_project.User.Manager.service"
 FILES_phosphor-ldap += " \
         ${sbindir}/phosphor-ldap-conf \
+        ${sbindir}/phosphor-ldap-mapper \
 "
-DBUS_SERVICE_phosphor-ldap = "xyz.openbmc_project.Ldap.Config.service"
+DBUS_SERVICE_phosphor-ldap = " \
+        xyz.openbmc_project.Ldap.Config.service \
+        xyz.openbmc_project.LDAP.PrivilegeMapper.service \
+"
 S = "${WORKDIR}/git"
 
 do_install_append() {
