@@ -20,8 +20,8 @@ inherit useradd
 
 USERADD_PACKAGES = "${PN}"
 # add groups needed for privilege maintenance
-GROUPADD_PARAM_${PN} = "priv-admin; priv-operator; priv-user; priv-callback "
-
+GROUPADD_PARAM_${PN} = "priv-admin; priv-operator; priv-user; priv-callback; web; redfish "
+GROUPADD_PARAM_phosphor-ldap = "priv-admin; priv-operator; priv-user; priv-callback "
 DBUS_SERVICE_${PN} += "xyz.openbmc_project.User.Manager.service"
 
 #SRC_URI += "git://github.com/openbmc/phosphor-user-manager"
