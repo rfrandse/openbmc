@@ -15,6 +15,7 @@ DEPENDS += "phosphor-dbus-interfaces"
 DEPENDS += "boost"
 RDEPENDS_${PN} += "libsystemd"
 RDEPENDS_${PN} += "phosphor-logging"
+RDEPENDS_${PN} += "bash"
 
 inherit useradd
 
@@ -26,6 +27,12 @@ DBUS_SERVICE_${PN} += "xyz.openbmc_project.User.Manager.service"
 
 #SRC_URI += "git://github.com/openbmc/phosphor-user-manager"
 #SRCREV = "7ba3c71cb31c6316e364d1c3c8abde249a6724d1"
+SRC_URI += "file://add_groups_workaround.sh"
 SRC_URI += "git://github.com/geissonator/phosphor-user-manager;branch=ldap"
 SRCREV = "ccd7bfde384eb4dd038eb7c9ba304ec8aba98691"
 S = "${WORKDIR}/git"
+
+do_install_append() {
+        install -d ${D}${bindir}
+        install -m 0755 ${WORKDIR}/add_groups_workaround.sh ${D}${bindir}/add_groups_workaround.sh
+}
