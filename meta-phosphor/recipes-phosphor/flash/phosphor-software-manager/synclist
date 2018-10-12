@@ -11,8 +11,6 @@
 /etc/systemd/network/
 /etc/nslcd.conf
 /etc/nsswitch.conf
-/etc/nsswitch_ldap.conf
-/etc/nsswitch_linux.conf
 /etc/pam.d/phosphor-rest-server
 /etc/pam.d/phosphor-rest-server-ldap
 /etc/pam.d/phosphor-rest-server-linux
