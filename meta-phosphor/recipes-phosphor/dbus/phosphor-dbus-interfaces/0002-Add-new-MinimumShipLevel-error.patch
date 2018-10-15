@@ -1,0 +1,53 @@
+From 2d2fe685aaeb33cb937e9735df356d4edc4c4aeb Mon Sep 17 00:00:00 2001
+From: Adriana Kobylak <anoo@us.ibm.com>
+Date: Mon, 8 Oct 2018 13:14:12 -0500
+Subject: [PATCH] Add new MinimumShipLevel error
+
+Add a new error for when an inventory item does not meet the
+MinimumShipLevel, and collect the following metadata:
+- MIN_VERSION: The minimum ship level of the inventory item as
+               defined by the implementation.
+- ACTUAL_VERSION: The version running on the inventory item.
+- VERSION_PURPOSE: The Version Purpose as described in
+    https://github.com/openbmc/phosphor-dbus-interfaces/blob/master/xyz/openbmc_project/Software/Version.interface.yaml
+    or some other descriptive text.
+
+Change-Id: I3e39bfa0735173aee7f3c2177ae24afa619efd69
+Signed-off-by: Adriana Kobylak <anoo@us.ibm.com>
+---
+ xyz/openbmc_project/Control/MinimumShipLevel.errors.yaml   | 6 ++++++
+ xyz/openbmc_project/Control/MinimumShipLevel.metadata.yaml | 9 +++++++++
+ 2 files changed, 15 insertions(+)
+ create mode 100644 xyz/openbmc_project/Control/MinimumShipLevel.errors.yaml
+ create mode 100644 xyz/openbmc_project/Control/MinimumShipLevel.metadata.yaml
+
+diff --git a/xyz/openbmc_project/Control/MinimumShipLevel.errors.yaml b/xyz/openbmc_project/Control/MinimumShipLevel.errors.yaml
+new file mode 100644
+index 0000000..4e6021f
+--- /dev/null
++++ b/xyz/openbmc_project/Control/MinimumShipLevel.errors.yaml
+@@ -0,0 +1,6 @@
++- name: NotMet
++  description: >
++    An inventory item does not meet the minimum version requirements and needs
++    to be updated. Some usage examples for this error include creating logging
++    events and providing information on implementation reactions such as when
++    the system is prevented from powering on if the MinimumShipLevel is not met.
+diff --git a/xyz/openbmc_project/Control/MinimumShipLevel.metadata.yaml b/xyz/openbmc_project/Control/MinimumShipLevel.metadata.yaml
+new file mode 100644
+index 0000000..1d70542
+--- /dev/null
++++ b/xyz/openbmc_project/Control/MinimumShipLevel.metadata.yaml
+@@ -0,0 +1,9 @@
++- name: NotMet
++  level: ERR
++  meta:
++    - str: "MIN_VERSION=%s"
++      type: string
++    - str: "ACTUAL_VERSION=%s"
++      type: string
++    - str: "VERSION_PURPOSE=%s"
++      type: string
+-- 
+1.8.3.1
+

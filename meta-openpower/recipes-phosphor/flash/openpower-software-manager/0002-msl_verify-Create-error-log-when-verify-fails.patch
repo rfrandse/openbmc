@@ -1,0 +1,80 @@
+From c3c8a7150b18931f4336dbd9b6c678d53531c82c Mon Sep 17 00:00:00 2001
+From: Adriana Kobylak <anoo@us.ibm.com>
+Date: Wed, 10 Oct 2018 13:53:30 -0500
+Subject: [PATCH 2/2] msl_verify: Create error log when verify fails
+
+Create a MinimumShipLevel::NotMet error log when the verification
+fails to make the failure more visible to the user.
+
+Tested: Verified a new error log was created.
+
+Oct 10 18:40:27 witherspoon systemd[1]: Starting OpenPOWER PNOR Minimum Ship Level Verification...
+Oct 10 18:40:27 witherspoon openpower-pnor-msl[1484]: PNOR Mininum Ship Level NOT met
+Oct 10 18:40:27 witherspoon openpower-pnor-msl[1484]: An inventory item does not meet the minimum version requirements and needs to be updated. Some usage examples for this error include creating logging events and providing information on implementation reactions such as when the system is prevented from powering on if the MinimumShipLevel is not met.
+
+    "/xyz/openbmc_project/logging/entry/1": {
+      "AdditionalData": [
+        "ACTUAL_VERSION=open-power-witherspoon-v2.1-136-gbaec486",
+        "MIN_VERSION=open-power-witherspoon-v2.21-100-g648a5fc-dirty",
+        "VERSION_PURPOSE=xyz.openbmc_project.Software.Version.VersionPurpose.Host",
+        "_PID=1484"
+      ],
+
+Change-Id: I3d13265b4a7e6a9a58cbd7cd619a162fb11da164
+Signed-off-by: Adriana Kobylak <anoo@us.ibm.com>
+---
+ msl_verify.cpp | 22 ++++++++++++++++------
+ 1 file changed, 16 insertions(+), 6 deletions(-)
+
+diff --git a/msl_verify.cpp b/msl_verify.cpp
+index d4a73ab..e986c32 100644
+--- a/msl_verify.cpp
++++ b/msl_verify.cpp
+@@ -2,8 +2,11 @@
+ 
+ #include <experimental/filesystem>
+ #include <fstream>
++#include <phosphor-logging/elog-errors.hpp>
++#include <phosphor-logging/elog.hpp>
+ #include <phosphor-logging/log.hpp>
+ #include <regex>
++#include <xyz/openbmc_project/Control/MinimumShipLevel/error.hpp>
+ 
+ namespace openpower
+ {
+@@ -116,6 +119,12 @@ static std::string getFunctionalPnorVersion()
+  */
+ static void verify()
+ {
++    using namespace sdbusplus::xyz::openbmc_project::Control::MinimumShipLevel::
++        Error;
++    using notMet = xyz::openbmc_project::Control::MinimumShipLevel::NotMet;
++
++    constexpr auto purpose =
++        "xyz.openbmc_project.Software.Version.VersionPurpose.Host";
+     auto min = std::string{PNOR_MSL};
+ 
+     if (std::string(PNOR_MSL).empty())
+@@ -143,12 +152,13 @@ static void verify()
+     auto rc = compare(min_t, actual_t);
+     if (rc != 0)
+     {
+-        log<level::ERR>(
+-            "PNOR Mininum Ship Level NOT met",
+-            entry("MIN_VERSION=%s", min.c_str()),
+-            entry("ACTUAL_VERSION=%s", actual.c_str()),
+-            entry("VERSION_PURPOSE=%s",
+-                  "xyz.openbmc_project.Software.Version.VersionPurpose.Host"));
++        log<level::ERR>("PNOR Mininum Ship Level NOT met",
++                        entry("MIN_VERSION=%s", min.c_str()),
++                        entry("ACTUAL_VERSION=%s", actual.c_str()),
++                        entry("VERSION_PURPOSE=%s", purpose));
++        report<NotMet>(notMet::MIN_VERSION(min.c_str()),
++                       notMet::ACTUAL_VERSION(actual.c_str()),
++                       notMet::VERSION_PURPOSE(purpose));
+     }
+ 
+     return;
+-- 
+1.8.3.1
+

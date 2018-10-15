@@ -34,6 +34,9 @@ S = "${WORKDIR}/git"
 SRC_URI += "git://github.com/openbmc/openpower-pnor-code-mgmt"
 
 SRC_URI += "file://obmc-flash-bios"
+SRC_URI += "file://0001-msl_verify-Initial-commit.patch"
+SRC_URI += "file://0002-msl_verify-Create-error-log-when-verify-fails.patch"
+SRC_URI += "file://0003-msl_verify-Add-support-for-multiple-MSL-values.patch"
 
 SRCREV = "1f985b69a622321e09fbd1fe9fb5501a24468c7e"
 
@@ -55,6 +58,7 @@ SYSTEMD_SERVICE_${PN} += " \
         obmc-flash-bios-cleanup.service \
         obmc-flash-bios-enable-clearvolatile@.service \
         obmc-flash-bios-check-clearvolatile@.service \
+        op-pnor-msl.service \
         "
 
 ENABLE_CLEAR_VOLATILE_TMPL = "obmc-flash-bios-enable-clearvolatile@.service"

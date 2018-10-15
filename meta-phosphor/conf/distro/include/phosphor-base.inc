@@ -116,6 +116,7 @@ DISTRO_FEATURES_DEFAULT = " \
         pam \
         slp \
         systemd \
+        ldap \
         "
 
 DISTRO_FEATURES = " \
