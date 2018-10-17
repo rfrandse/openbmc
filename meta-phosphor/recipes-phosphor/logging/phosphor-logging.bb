@@ -54,6 +54,7 @@ FILES_phosphor-rsyslog-config += " \
 
 SRC_URI += "git://github.com/openbmc/phosphor-logging"
 SRCREV = "7d111a85eb9e38568acbbc0125bb25f69098aec3"
+SRC_URI += "file://0001-phosphor-rsyslog-conf-react-to-hostname-change.patch"
 
 S = "${WORKDIR}/git"
 
