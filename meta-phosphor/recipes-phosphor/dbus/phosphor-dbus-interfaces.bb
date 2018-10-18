@@ -12,9 +12,10 @@ inherit phosphor-dbus-yaml
 DEPENDS += "autoconf-archive-native"
 DEPENDS += "sdbus++-native"
 
-SRC_URI += "git://github.com/openbmc/phosphor-dbus-interfaces"
+#SRC_URI += "git://github.com/openbmc/phosphor-dbus-interfaces"
 #SRCREV = "bf21cfa8640c968a5e825b141866b858118fb1a1"
-SRCREV = "95fafa87ac341b90ade6367b8bfff6fab4b8e8d2"
+SRC_URI += "git://github.com/geissonator/phosphor-dbus-interfaces;branch=ldap"
+SRCREV = "d95060b115b4601d2bc89e52830f701d06da9f4d"
 SRC_URI += "file://0001-DO-NOT-MERGE-SNMP-Client-Interface-to-be-backward-co.patch"
 SRC_URI += "file://0002-Add-new-MinimumShipLevel-error.patch"
 
