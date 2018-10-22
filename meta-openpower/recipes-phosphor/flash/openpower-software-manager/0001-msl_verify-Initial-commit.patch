@@ -1,7 +1,7 @@
-From 4f05ddc71507eb495f4e3503bd5de9a876ee2359 Mon Sep 17 00:00:00 2001
+From 4772a944dc93438752af5deee1dd2350c8c69389 Mon Sep 17 00:00:00 2001
 From: Adriana Kobylak <anoo@us.ibm.com>
 Date: Tue, 9 Oct 2018 15:26:44 -0500
-Subject: [PATCH 1/2] msl_verify: Initial commit
+Subject: [PATCH 1/3] msl_verify: Initial commit
 
 Create a new binary that checks the msl (minimum ship level)
 of the PNOR and logs an error message if the version on the
@@ -10,14 +10,21 @@ system is older. The msl can be specified via a config flag.
 Change-Id: I6f477400f7a8cf56557bd0caf5d6e08d73320028
 Signed-off-by: Adriana Kobylak <anoo@us.ibm.com>
 ---
- Makefile.am    |   8 ++-
- configure.ac   |   9 ++++
- msl_verify.cpp | 165 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++
- 3 files changed, 181 insertions(+), 1 deletion(-)
+ Makefile.am         |   9 +++-
+ configure.ac        |   9 ++++
+ msl_verify.cpp      | 137 ++++++++++++++++++++++++++++++++++++++++++++++++++++
+ msl_verify.hpp      |  77 +++++++++++++++++++++++++++++
+ msl_verify_main.cpp |  16 ++++++
+ test/Makefile.am    |   5 +-
+ test/msl_verify.cpp |  78 ++++++++++++++++++++++++++++++
+ 7 files changed, 329 insertions(+), 2 deletions(-)
  create mode 100644 msl_verify.cpp
+ create mode 100644 msl_verify.hpp
+ create mode 100644 msl_verify_main.cpp
+ create mode 100644 test/msl_verify.cpp
 
 diff --git a/Makefile.am b/Makefile.am
-index 0f05061..7cb74f6 100755
+index 0f05061..e012ae5 100755
 --- a/Makefile.am
 +++ b/Makefile.am
 @@ -3,7 +3,8 @@ AM_DEFAULT_SOURCE_EXT = .cpp
@@ -30,17 +37,18 @@ index 0f05061..7cb74f6 100755
  
  openpower_update_manager_SOURCES = \
  	activation.cpp \
-@@ -22,6 +23,9 @@ endif
+@@ -22,6 +23,10 @@ endif
  nodist_openpower_update_manager_SOURCES = \
  	org/openbmc/Associations/server.cpp
  
 +openpower_pnor_msl_SOURCES = \
-+	msl_verify.cpp
++	msl_verify.cpp \
++	msl_verify_main.cpp
 +
  CLEANFILES = \
  	org/openbmc/Associations/server.cpp \
  	org/openbmc/Associations/server.hpp
-@@ -55,5 +59,7 @@ org/openbmc/Associations/server.hpp: org/openbmc/Associations.interface.yaml
+@@ -55,5 +60,7 @@ org/openbmc/Associations/server.hpp: org/openbmc/Associations.interface.yaml
  
  openpower_update_manager_CXXFLAGS = $(generic_cxxflags)
  openpower_update_manager_LDFLAGS = $(generic_ldflags)
@@ -69,11 +77,13 @@ index 7153727..95b70e3 100755
  AC_OUTPUT
 diff --git a/msl_verify.cpp b/msl_verify.cpp
 new file mode 100644
-index 0000000..d4a73ab
+index 0000000..1a6234c
 --- /dev/null
 +++ b/msl_verify.cpp
-@@ -0,0 +1,165 @@
+@@ -0,0 +1,137 @@
 +#include "config.h"
++
++#include "msl_verify.hpp"
 +
 +#include <experimental/filesystem>
 +#include <fstream>
@@ -84,94 +94,79 @@ index 0000000..d4a73ab
 +{
 +namespace software
 +{
-+namespace msl
++namespace image
 +{
 +
 +namespace fs = std::experimental::filesystem;
 +using namespace phosphor::logging;
 +
-+struct Version_t
++int MinimumShipLevel::compare(const Version& a, const Version& b)
 +{
-+    uint32_t major;
-+    uint32_t minor;
-+    uint32_t rev;
-+};
-+
-+/**
-+ * @brief Compare the versions provided
-+ * @param[in] a - The first version to compare
-+ * @param[in] b - The second version to compare
-+ * @return 0 if a <= b, -1 otherwise.
-+ */
-+static int compare(const Version_t& a, const Version_t& b)
-+{
-+    if (a.major > b.major)
++    if (a.major < b.major)
 +    {
 +        return -1;
 +    }
-+    else if (a.major < b.major)
++    else if (a.major > b.major)
 +    {
-+        return 0;
++        return 1;
 +    }
 +
-+    if (a.minor > b.minor)
++    if (a.minor < b.minor)
 +    {
 +        return -1;
 +    }
-+    else if (a.minor < b.minor)
++    else if (a.minor > b.minor)
 +    {
-+        return 0;
++        return 1;
 +    }
 +
-+    if (a.rev > b.rev)
++    if (a.rev < b.rev)
 +    {
 +        return -1;
 +    }
-+    else if (a.rev < b.rev)
++    else if (a.rev > b.rev)
 +    {
-+        return 0;
++        return 1;
 +    }
 +
 +    return 0;
 +}
 +
-+/**
-+ * @brief Parse the version parts into a struct
-+ * @details Version format follows a git tag convention: vX.Y[.Z]
-+ *          Reference:
-+ *          https://github.com/open-power/op-build/blob/master/openpower/package/VERSION.readme
-+ * @param[in] version - The version string to be parsed
-+ * @param[out] version_t - The version struct to be populated
-+ */
-+static void parse(const std::string& version, Version_t& version_t)
++void MinimumShipLevel::parse(const std::string& versionStr, Version& version)
 +{
 +    std::smatch match;
++    version = {0, 0, 0};
 +
 +    // Match for vX.Y.Z
 +    std::regex regex{"v([0-9]+)\\.([0-9]+)\\.([0-9]+)", std::regex::extended};
 +
-+    if (!std::regex_search(version, match, regex))
++    if (!std::regex_search(versionStr, match, regex))
 +    {
 +        // Match for vX.Y
 +        std::regex regexShort{"v([0-9]+)\\.([0-9]+)", std::regex::extended};
-+        if (!std::regex_search(version, match, regexShort))
++        if (!std::regex_search(versionStr, match, regexShort))
 +        {
 +            log<level::ERR>("Unable to parse PNOR version",
-+                            entry("VERSION=%s", version.c_str()));
++                            entry("VERSION=%s", versionStr.c_str()));
 +            return;
 +        }
 +    }
 +    else
 +    {
 +        // Populate Z
-+        version_t.rev = std::stoi(match[3]);
++        version.rev = std::stoi(match[3]);
 +    }
-+    version_t.major = std::stoi(match[1]);
-+    version_t.minor = std::stoi(match[2]);
++    version.major = std::stoi(match[1]);
++    version.minor = std::stoi(match[2]);
 +}
 +
-+static std::string getFunctionalPnorVersion()
++std::string MinimumShipLevel::getFunctionalVersion()
 +{
++    if (!fs::exists(PNOR_RO_ACTIVE_PATH))
++    {
++        return {};
++    }
++
 +    fs::path versionPath(PNOR_RO_ACTIVE_PATH);
 +    versionPath /= PNOR_VERSION_PARTITION;
 +    if (!fs::is_regular_file(versionPath))
@@ -186,58 +181,253 @@ index 0000000..d4a73ab
 +    return versionStr;
 +}
 +
-+/**
-+ * @brief Verify that the current PNOR version meets the min ship level (msl)
-+ */
-+static void verify()
++bool MinimumShipLevel::verify()
 +{
-+    auto min = std::string{PNOR_MSL};
-+
-+    if (std::string(PNOR_MSL).empty())
++    if (minShipLevel.empty())
 +    {
-+        return;
++        return true;
 +    }
 +
-+    if (!fs::exists(PNOR_RO_ACTIVE_PATH))
-+    {
-+        return;
-+    }
-+
-+    auto actual = getFunctionalPnorVersion();
++    auto actual = getFunctionalVersion();
 +    if (actual.empty())
 +    {
-+        return;
++        return true;
 +    }
 +
-+    Version_t min_t = {0, 0, 0};
-+    parse(min, min_t);
++    Version minVersion = {0, 0, 0};
++    parse(minShipLevel, minVersion);
 +
-+    Version_t actual_t = {0, 0, 0};
-+    parse(actual, actual_t);
++    Version actualVersion = {0, 0, 0};
++    parse(actual, actualVersion);
 +
-+    auto rc = compare(min_t, actual_t);
-+    if (rc != 0)
++    auto rc = compare(actualVersion, minVersion);
++    if (rc < 0)
 +    {
 +        log<level::ERR>(
 +            "PNOR Mininum Ship Level NOT met",
-+            entry("MIN_VERSION=%s", min.c_str()),
++            entry("MIN_VERSION=%s", minShipLevel.c_str()),
 +            entry("ACTUAL_VERSION=%s", actual.c_str()),
 +            entry("VERSION_PURPOSE=%s",
 +                  "xyz.openbmc_project.Software.Version.VersionPurpose.Host"));
++        return false;
 +    }
 +
-+    return;
++    return true;
 +}
-+} // namespace msl
++
++} // namespace image
 +} // namespace software
 +} // namespace openpower
+diff --git a/msl_verify.hpp b/msl_verify.hpp
+new file mode 100644
+index 0000000..59f4017
+--- /dev/null
++++ b/msl_verify.hpp
+@@ -0,0 +1,77 @@
++#pragma once
 +
-+int main(int argc, char** argv)
++#include <string>
++
++namespace openpower
 +{
-+    openpower::software::msl::verify();
++namespace software
++{
++namespace image
++{
++
++/** @class MinimumShipLevel
++ *  @brief Contains minimum ship level verification functions.
++ */
++class MinimumShipLevel
++{
++  public:
++    MinimumShipLevel() = delete;
++    MinimumShipLevel(const MinimumShipLevel&) = delete;
++    MinimumShipLevel& operator=(const MinimumShipLevel&) = delete;
++    MinimumShipLevel(MinimumShipLevel&&) = default;
++    MinimumShipLevel& operator=(MinimumShipLevel&&) = default;
++    ~MinimumShipLevel() = default;
++
++    /** @brief Constructs MinimumShipLevel.
++     *  @param[in] minShipLevel - Minimum Ship Level string
++     */
++    MinimumShipLevel(const std::string& minShipLevel) :
++        minShipLevel(minShipLevel){};
++
++    /** @brief Verify if the current PNOR version meets the min ship level
++     *  @return true if the verification succeeded, false otherwise
++     */
++    bool verify();
++
++    /** @brief Version components */
++    struct Version
++    {
++        uint8_t major;
++        uint8_t minor;
++        uint8_t rev;
++    };
++
++    /** @brief Get the functional PNOR version on the system
++     *  @details If the PNOR version file is not found, don't log an error since
++     *           all PNOR images may had been deleted. If there is an issue with
++     *           the VERSION partition, it should be caught by the host fw code.
++     *  @return The populated or empty version string
++     */
++    std::string getFunctionalVersion();
++
++    /** @brief Parse the version components into a struct
++     *  @details Version format follows a git tag convention: vX.Y[.Z]
++     *          Reference:
++     *          https://github.com/open-power/op-build/blob/master/openpower/package/VERSION.readme
++     * @param[in]  versionStr - The version string to be parsed
++     * @param[out] version    - The version struct to be populated
++     */
++    void parse(const std::string& versionStr, Version& version);
++
++    /** @brief Compare the versions provided
++     *  @param[in] a - The first version to compare
++     *  @param[in] b - The second version to compare
++     *  @return 1 if a > b
++     *          0 if a = b
++     *         -1 if a < b
++     */
++    int compare(const Version& a, const Version& b);
++
++  private:
++    /** Minimum Ship Level to compare against */
++    std::string minShipLevel;
++};
++
++} // namespace image
++} // namespace software
++} // namespace openpower
+diff --git a/msl_verify_main.cpp b/msl_verify_main.cpp
+new file mode 100644
+index 0000000..85911dd
+--- /dev/null
++++ b/msl_verify_main.cpp
+@@ -0,0 +1,16 @@
++#include "config.h"
++
++#include "msl_verify.hpp"
++
++int main(int argc, char* argv[])
++{
++    using MinimumShipLevel = openpower::software::image::MinimumShipLevel;
++    MinimumShipLevel minimumShipLevel(PNOR_MSL);
++
++    if (!minimumShipLevel.verify())
++    {
++        // TODO Create error log
++    }
 +
 +    return 0;
 +}
+diff --git a/test/Makefile.am b/test/Makefile.am
+index 6dcba30..3dc6960 100755
+--- a/test/Makefile.am
++++ b/test/Makefile.am
+@@ -27,7 +27,9 @@ utest_LDFLAGS = \
+ 	-lssl \
+ 	-lcrypto
+ 
+-utest_SOURCES = utest.cpp
++utest_SOURCES = \
++	utest.cpp \
++	msl_verify.cpp
+ utest_LDADD = \
+ 	$(top_builddir)/openpower_update_manager-activation.o \
+ 	$(top_builddir)/openpower_update_manager-version.o \
+@@ -36,4 +38,5 @@ utest_LDADD = \
+ 	$(top_builddir)/openpower_update_manager-item_updater.o \
+ 	$(top_builddir)/org/openbmc/Associations/openpower_update_manager-server.o \
+ 	$(top_builddir)/image_verify.cpp \
++	$(top_builddir)/msl_verify.cpp \
+ 	-lstdc++fs
+diff --git a/test/msl_verify.cpp b/test/msl_verify.cpp
+new file mode 100644
+index 0000000..5fdf505
+--- /dev/null
++++ b/test/msl_verify.cpp
+@@ -0,0 +1,78 @@
++#include "msl_verify.hpp"
++
++#include <gtest/gtest.h>
++
++namespace openpower
++{
++namespace software
++{
++namespace image
++{
++
++class MinimumShipLevelTest : public testing::Test
++{
++  protected:
++    std::string minShipLevel = "v.2.2";
++    std::unique_ptr<MinimumShipLevel> minimumShipLevel;
++
++    virtual void SetUp()
++    {
++        minimumShipLevel = std::make_unique<MinimumShipLevel>(minShipLevel);
++    }
++};
++
++TEST_F(MinimumShipLevelTest, compare)
++{
++    MinimumShipLevel::Version min;
++    MinimumShipLevel::Version actual;
++
++    min = {3, 5, 7};
++
++    // actual = min
++    actual = {3, 5, 7};
++    EXPECT_EQ(0, minimumShipLevel->compare(actual, min));
++
++    // actual < min
++    actual = {3, 5, 6};
++    EXPECT_EQ(-1, minimumShipLevel->compare(actual, min));
++    actual = {3, 4, 7};
++    EXPECT_EQ(-1, minimumShipLevel->compare(actual, min));
++    actual = {2, 5, 7};
++    EXPECT_EQ(-1, minimumShipLevel->compare(actual, min));
++
++    // actual > min
++    actual = {3, 5, 8};
++    EXPECT_EQ(1, minimumShipLevel->compare(actual, min));
++    actual = {3, 6, 7};
++    EXPECT_EQ(1, minimumShipLevel->compare(actual, min));
++    actual = {4, 5, 7};
++    EXPECT_EQ(1, minimumShipLevel->compare(actual, min));
++}
++
++TEST_F(MinimumShipLevelTest, parse)
++{
++    MinimumShipLevel::Version version;
++    std::string versionStr;
++
++    versionStr = "nomatch-1.2.3-abc";
++    minimumShipLevel->parse(versionStr, version);
++    EXPECT_EQ(0, version.major);
++    EXPECT_EQ(0, version.minor);
++    EXPECT_EQ(0, version.rev);
++
++    versionStr = "xyzformat-v1.2.3-4.5abc";
++    minimumShipLevel->parse(versionStr, version);
++    EXPECT_EQ(1, version.major);
++    EXPECT_EQ(2, version.minor);
++    EXPECT_EQ(3, version.rev);
++
++    versionStr = "xyformat-system-v6.7-abc";
++    minimumShipLevel->parse(versionStr, version);
++    EXPECT_EQ(6, version.major);
++    EXPECT_EQ(7, version.minor);
++    EXPECT_EQ(0, version.rev);
++}
++
++} // namespace image
++} // namespace software
++} // namespace openpower
 -- 
 1.8.3.1
 

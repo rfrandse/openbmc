@@ -1,6 +1,6 @@
-From 775acf8e763ca77306c9a4e7997deb600a64ab97 Mon Sep 17 00:00:00 2001
+From 5c33b4c6e518355b1bb60f21b0b6932e78477ea4 Mon Sep 17 00:00:00 2001
 From: Adriana Kobylak <anoo@us.ibm.com>
-Date: Thu, 11 Oct 2018 12:12:06 -0500
+Date: Wed, 17 Oct 2018 20:16:19 -0500
 Subject: [PATCH 3/3] msl_verify: Add support for multiple MSL values
 
 There are scenarios where the BMC can support multiple PNOR MSL
@@ -10,65 +10,72 @@ separated by a space.
 Change-Id: Id65c43872db33538e2f02f6f60b4571a5231717b
 Signed-off-by: Adriana Kobylak <anoo@us.ibm.com>
 ---
- msl_verify.cpp | 34 +++++++++++++++++++++-------------
- 1 file changed, 21 insertions(+), 13 deletions(-)
+ msl_verify.cpp | 45 ++++++++++++++++++++++++++++++++++++++++-----
+ 1 file changed, 40 insertions(+), 5 deletions(-)
 
 diff --git a/msl_verify.cpp b/msl_verify.cpp
-index e986c32..bc1585e 100644
+index 1a6234c..36203db 100644
 --- a/msl_verify.cpp
 +++ b/msl_verify.cpp
-@@ -125,7 +125,7 @@ static void verify()
- 
-     constexpr auto purpose =
-         "xyz.openbmc_project.Software.Version.VersionPurpose.Host";
--    auto min = std::string{PNOR_MSL};
-+    auto minStr = std::string{PNOR_MSL};
- 
-     if (std::string(PNOR_MSL).empty())
-     {
-@@ -143,22 +143,30 @@ static void verify()
-         return;
+@@ -111,18 +111,53 @@ bool MinimumShipLevel::verify()
+         return true;
      }
  
--    Version_t min_t = {0, 0, 0};
--    parse(min, min_t);
+-    Version minVersion = {0, 0, 0};
+-    parse(minShipLevel, minVersion);
 -
-     Version_t actual_t = {0, 0, 0};
-     parse(actual, actual_t);
- 
--    auto rc = compare(min_t, actual_t);
--    if (rc != 0)
-+    std::istringstream minStream(minStr);
++    // Multiple min versions separated by a space can be specified, parse them
++    // into a vector, then sort them in ascending order
++    std::istringstream minStream(minShipLevel);
 +    std::vector<std::string> mins(std::istream_iterator<std::string>{minStream},
 +                                  std::istream_iterator<std::string>());
++    std::sort(mins.begin(), mins.end());
 +
-+    for (auto& min : mins)
-     {
--        log<level::ERR>("PNOR Mininum Ship Level NOT met",
--                        entry("MIN_VERSION=%s", min.c_str()),
--                        entry("ACTUAL_VERSION=%s", actual.c_str()),
--                        entry("VERSION_PURPOSE=%s", purpose));
--        report<NotMet>(notMet::MIN_VERSION(min.c_str()),
--                       notMet::ACTUAL_VERSION(actual.c_str()),
--                       notMet::VERSION_PURPOSE(purpose));
-+        Version_t min_t = {0, 0, 0};
-+        parse(min, min_t);
++    // In order to handle non-continuous multiple min versions, need to compare
++    // the major.minor section first, then if they're the same, compare the rev.
++    // Ex: the min versions specified are 2.0.10 and 2.2. We need to pass if
++    // actual is 2.0.11 but fail if it's 2.1.x.
++    // 1. Save off the rev number to compare later if needed.
++    // 2. Zero out the rev number to just compare major and minor.
+     Version actualVersion = {0, 0, 0};
+     parse(actual, actualVersion);
++    Version actualRev = {0, 0, actualVersion.rev};
++    actualVersion.rev = 0;
 +
-+        auto rc = compare(min_t, actual_t);
-+        if (rc != 0)
++    auto rc = 0;
++    std::string tmpMin{};
++
++    for (auto const& min : mins)
++    {
++        tmpMin = min;
++
++        Version minVersion = {0, 0, 0};
++        parse(min, minVersion);
++        Version minRev = {0, 0, minVersion.rev};
++        minVersion.rev = 0;
+ 
+-    auto rc = compare(actualVersion, minVersion);
++        rc = compare(actualVersion, minVersion);
++        if (rc < 0)
 +        {
-+            log<level::ERR>("PNOR Mininum Ship Level NOT met",
-+                            entry("MIN_VERSION=%s", min.c_str()),
-+                            entry("ACTUAL_VERSION=%s", actual.c_str()),
-+                            entry("VERSION_PURPOSE=%s", purpose));
-+            report<NotMet>(notMet::MIN_VERSION(min.c_str()),
-+                           notMet::ACTUAL_VERSION(actual.c_str()),
-+                           notMet::VERSION_PURPOSE(purpose));
 +            break;
 +        }
-     }
- 
-     return;
++        else if (rc == 0)
++        {
++            // Same major.minor version, compare the rev
++            rc = compare(actualRev, minRev);
++            break;
++        }
++    }
+     if (rc < 0)
+     {
+         log<level::ERR>(
+             "PNOR Mininum Ship Level NOT met",
+-            entry("MIN_VERSION=%s", minShipLevel.c_str()),
++            entry("MIN_VERSION=%s", tmpMin.c_str()),
+             entry("ACTUAL_VERSION=%s", actual.c_str()),
+             entry("VERSION_PURPOSE=%s",
+                   "xyz.openbmc_project.Software.Version.VersionPurpose.Host"));
 -- 
 1.8.3.1
 
