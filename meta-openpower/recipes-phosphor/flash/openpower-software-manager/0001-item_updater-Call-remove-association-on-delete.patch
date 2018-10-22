@@ -1,0 +1,71 @@
+From 54b9985bcb5d0fb06b3d9c24f6d29ffc1d58cc80 Mon Sep 17 00:00:00 2001
+From: Adriana Kobylak <anoo@us.ibm.com>
+Date: Tue, 30 Oct 2018 14:51:53 -0500
+Subject: [PATCH 1/2] item_updater: Call remove association on delete
+
+The remove association function was supposed to be called
+on delete but was never implemented so if the associations
+are queried but the version has been deleted, that'd be
+false information, so call to remove the associations on delete,
+also rename it to delete all associations, because the
+functional pnor version can be deleted if the chassis state
+is off and the delete function already made that determination.
+
+Tested: Verified all associations (active and functional) are
+deleted with a DeleteAll call.
+
+Change-Id: I6e5589256dd8f62ac2ecf7574b9d08920b8b5e3d
+Signed-off-by: Adriana Kobylak <anoo@us.ibm.com>
+---
+ item_updater.cpp | 6 +++---
+ item_updater.hpp | 4 ++--
+ 2 files changed, 5 insertions(+), 5 deletions(-)
+
+diff --git a/item_updater.cpp b/item_updater.cpp
+index 91421b8..fcb7aca 100644
+--- a/item_updater.cpp
++++ b/item_updater.cpp
+@@ -489,6 +489,7 @@ void ItemUpdater::erase(std::string entryId)
+     }
+     else
+     {
++        removeAssociation(ita->second->path);
+         activations.erase(entryId);
+     }
+     return;
+@@ -582,12 +583,11 @@ void ItemUpdater::updateFunctionalAssociation(const std::string& path)
+     associations(assocs);
+ }
+ 
+-void ItemUpdater::removeActiveAssociation(const std::string& path)
++void ItemUpdater::removeAssociation(const std::string& path)
+ {
+     for (auto iter = assocs.begin(); iter != assocs.end();)
+     {
+-        if ((std::get<0>(*iter)).compare(ACTIVE_FWD_ASSOCIATION) == 0 &&
+-            (std::get<2>(*iter)).compare(path) == 0)
++        if ((std::get<2>(*iter)).compare(path) == 0)
+         {
+             iter = assocs.erase(iter);
+             associations(assocs);
+diff --git a/item_updater.hpp b/item_updater.hpp
+index 41e229f..2a95c1e 100644
+--- a/item_updater.hpp
++++ b/item_updater.hpp
+@@ -165,11 +165,11 @@ class ItemUpdater : public ItemUpdaterInherit
+      */
+     void updateFunctionalAssociation(const std::string& path);
+ 
+-    /** @brief Removes an active association to the software image
++    /** @brief Removes an association to the software image
+      *
+      * @param[in]  path - The path to remove the association from.
+      */
+-    void removeActiveAssociation(const std::string& path);
++    void removeAssociation(const std::string& path);
+ 
+     /** @brief Persistent GardReset dbus object */
+     std::unique_ptr<GardReset> gardReset;
+-- 
+1.8.3.1
+

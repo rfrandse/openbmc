@@ -34,11 +34,10 @@ S = "${WORKDIR}/git"
 SRC_URI += "git://github.com/openbmc/openpower-pnor-code-mgmt"
 
 SRC_URI += "file://obmc-flash-bios"
-SRC_URI += "file://0001-msl_verify-Initial-commit.patch"
-SRC_URI += "file://0002-msl_verify-Create-error-log-when-verify-fails.patch"
-SRC_URI += "file://0003-msl_verify-Add-support-for-multiple-MSL-values.patch"
+SRC_URI += "file://0001-item_updater-Call-remove-association-on-delete.patch"
+SRC_URI += "file://0002-msl_verify-Read-the-functional-version-from-D-Bus.patch"
 
-SRCREV = "1f985b69a622321e09fbd1fe9fb5501a24468c7e"
+SRCREV = "5c33b4c6e518355b1bb60f21b0b6932e78477ea4"
 
 do_install_append() {
         install -d ${D}${sbindir}

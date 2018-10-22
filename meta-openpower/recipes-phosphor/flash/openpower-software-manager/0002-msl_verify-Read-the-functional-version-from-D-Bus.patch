@@ -1,0 +1,118 @@
+From 7161f42607f3e451f430b4357dba2f63ba52939e Mon Sep 17 00:00:00 2001
+From: Adriana Kobylak <anoo@us.ibm.com>
+Date: Tue, 30 Oct 2018 12:17:31 -0500
+Subject: [PATCH 2/2] msl_verify: Read the functional version from D-Bus
+
+The VERSION partition may have a secure boot header, so
+the version string would not be the first line.
+Instead of adding logic to parse the VERSION partition
+and to protect against future changes, read the version
+string from D-Bus instead by querying the functional
+association.
+
+Tested: The functional version was read successfully.
+
+Change-Id: Icf0a9bd9f360ef9f0732579fa073f8661b8c57bd
+Signed-off-by: Adriana Kobylak <anoo@us.ibm.com>
+---
+ configure.ac   |  2 ++
+ msl_verify.cpp | 54 ++++++++++++++++++++++++++++++++++++++++++++++--------
+ 2 files changed, 48 insertions(+), 8 deletions(-)
+
+diff --git a/configure.ac b/configure.ac
+index 95b70e3..79dbef8 100755
+--- a/configure.ac
++++ b/configure.ac
+@@ -125,6 +125,8 @@ AC_DEFINE(SYSTEMD_INTERFACE, "org.freedesktop.systemd1.Manager",
+     [systemd interface.])
+ AC_DEFINE(SYSTEMD_PROPERTY_INTERFACE, "org.freedesktop.DBus.Properties",
+     [systemd properties interface.])
++AC_DEFINE(ASSOCIATIONS_INTERFACE, "org.openbmc.Associations",
++    [The associations interface.])
+ 
+ AC_DEFINE(PNOR_TOC_FILE, "pnor.toc",
+     [The name of the PNOR table of contents file])
+diff --git a/msl_verify.cpp b/msl_verify.cpp
+index 36203db..7f72cac 100644
+--- a/msl_verify.cpp
++++ b/msl_verify.cpp
+@@ -16,6 +16,8 @@ namespace image
+ 
+ namespace fs = std::experimental::filesystem;
+ using namespace phosphor::logging;
++using AssociationList =
++    std::vector<std::tuple<std::string, std::string, std::string>>;
+ 
+ int MinimumShipLevel::compare(const Version& a, const Version& b)
+ {
+@@ -79,23 +81,59 @@ void MinimumShipLevel::parse(const std::string& versionStr, Version& version)
+ 
+ std::string MinimumShipLevel::getFunctionalVersion()
+ {
+-    if (!fs::exists(PNOR_RO_ACTIVE_PATH))
++    auto bus = sdbusplus::bus::new_default();
++    auto method = bus.new_method_call(BUSNAME_UPDATER, SOFTWARE_OBJPATH,
++                                      SYSTEMD_PROPERTY_INTERFACE, "Get");
++    method.append(ASSOCIATIONS_INTERFACE, "associations");
++    auto response = bus.call(method);
++
++    sdbusplus::message::variant<AssociationList> associations;
++    try
+     {
++        response.read(associations);
++    }
++    catch (const sdbusplus::exception::SdBusError& e)
++    {
++        log<level::ERR>("Failed to read software associations",
++                        entry("ERROR=%s", e.what()),
++                        entry("SIGNATURE=%s", response.get_signature()));
+         return {};
+     }
+ 
+-    fs::path versionPath(PNOR_RO_ACTIVE_PATH);
+-    versionPath /= PNOR_VERSION_PARTITION;
+-    if (!fs::is_regular_file(versionPath))
++    auto& assocs = associations.get<AssociationList>();
++    if (assocs.empty())
+     {
+         return {};
+     }
+ 
+-    std::ifstream versionFile(versionPath);
+-    std::string versionStr;
+-    std::getline(versionFile, versionStr);
++    for (const auto& assoc : assocs)
++    {
++        if (std::get<0>(assoc).compare(FUNCTIONAL_FWD_ASSOCIATION) == 0)
++        {
++            auto path = std::get<2>(assoc);
++            method = bus.new_method_call(BUSNAME_UPDATER, path.c_str(),
++                                         SYSTEMD_PROPERTY_INTERFACE, "Get");
++            method.append(VERSION_IFACE, "Version");
++            response = bus.call(method);
++
++            sdbusplus::message::variant<std::string> functionalVersion;
++            try
++            {
++                response.read(functionalVersion);
++                return (functionalVersion.get<std::string>());
++            }
++            catch (const sdbusplus::exception::SdBusError& e)
++            {
++                log<level::ERR>(
++                    "Failed to read version property",
++                    entry("ERROR=%s", e.what()),
++                    entry("SIGNATURE=%s", response.get_signature()));
++                return {};
++            }
++        }
++    }
+ 
+-    return versionStr;
++    return {};
+ }
+ 
+ bool MinimumShipLevel::verify()
+-- 
+1.8.3.1
+
