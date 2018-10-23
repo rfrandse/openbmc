@@ -10,7 +10,7 @@ LIC_FILES_CHKSUM = "file://LICENSE;md5=86d3f3a95c324c9479bd8986968f4327"
 
 SRC_URI = "git://github.com/openbmc/phosphor-certificate-manager;nobranch=1"
 #SRCREV = "cfbc8dc8904bfdc1776e1a9f841fb48d00d6d968"
-SRCREV = "529d3aa2d9ceb80a76d87ce8778dad8d90bc8d1c"
+SRCREV = "1982c9d8642101483f4108685e47368b15470bac"
 
 inherit autotools \
         pkgconfig \
