@@ -32,7 +32,7 @@ DBUS_SERVICE_${PN} += "xyz.openbmc_project.User.Manager.service"
 #SRCREV = "7ba3c71cb31c6316e364d1c3c8abde249a6724d1"
 SRC_URI += "file://add_groups_workaround.sh"
 SRC_URI += "git://github.com/geissonator/phosphor-user-manager;branch=ldap"
-SRCREV = "3acca0dc88a7e2c6355609a07a48ccaf4eee220c"
+SRCREV = "3eccad7306283b6791b83da8c7d173dbbaf8d95e"
 DBUS_SERVICE_${PN} += "xyz.openbmc_project.User.Manager.service"
 FILES_phosphor-ldap += " \
         ${sbindir}/phosphor-ldap-conf \
