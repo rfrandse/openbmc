@@ -40,15 +40,6 @@ DBUS_SERVICE_phosphor-ldap = " \
 SRC_URI += "file://add_groups_workaround.sh"
 SRC_URI += "git://github.com/geissonator/phosphor-user-manager;branch=ldap"
 SRCREV = "3eccad7306283b6791b83da8c7d173dbbaf8d95e"
-DBUS_SERVICE_${PN} += "xyz.openbmc_project.User.Manager.service"
-FILES_phosphor-ldap += " \
-        ${sbindir}/phosphor-ldap-conf \
-        ${sbindir}/phosphor-ldap-mapper \
-"
-DBUS_SERVICE_phosphor-ldap = " \
-        xyz.openbmc_project.Ldap.Config.service \
-        xyz.openbmc_project.LDAP.PrivilegeMapper.service \
-"
 S = "${WORKDIR}/git"
 
 do_install_append() {
