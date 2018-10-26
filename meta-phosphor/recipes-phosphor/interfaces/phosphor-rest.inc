@@ -5,5 +5,5 @@ LIC_FILES_CHKSUM = "file://${WORKDIR}/git/LICENSE;md5=fa818a259cbed7ce8bc2a22d35
 #SRC_URI += "git://github.com/openbmc/phosphor-rest-server"
 #SRCREV = "dee2ef579be581abe0d7e1dc8873463029b30deb"
 SRC_URI += "git://github.com/geissonator/phosphor-rest-server;branch=ldap"
-SRCREV = "45de6e8a2de6029fdc692d2e9738448190cfde52"
+SRCREV = "fa8c8223a99d1d3b2c5734cac6e7fd8ae50ecb98"
 
