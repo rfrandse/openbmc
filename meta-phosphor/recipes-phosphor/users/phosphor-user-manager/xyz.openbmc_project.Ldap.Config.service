@@ -1,9 +1,8 @@
 [Unit]
 Description=Phosphor Ldap config updater
-Wants=nslcd.service
-After=nslcd.service
-Wants=nscd.service
-After=nscd.service
+Wants=nslcd.service nscd.service
+After=nslcd.service nscd.service
+Before=xyz.openbmc_project.Software.Sync.service
 
 [Service]
 ExecStart=/usr/bin/env phosphor-ldap-conf
