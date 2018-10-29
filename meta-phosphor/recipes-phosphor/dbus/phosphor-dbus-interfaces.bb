@@ -15,7 +15,7 @@ DEPENDS += "sdbus++-native"
 #SRC_URI += "git://github.com/openbmc/phosphor-dbus-interfaces"
 #SRCREV = "bf21cfa8640c968a5e825b141866b858118fb1a1"
 SRC_URI += "git://github.com/geissonator/phosphor-dbus-interfaces;branch=ldap"
-SRCREV = "71ff19639e38b677213f4e19d9a92c0020bc48e0"
+SRCREV = "edfc8d57d850bf0f4f6ca778c17d61903dec080b"
 SRC_URI += "file://0001-DO-NOT-MERGE-SNMP-Client-Interface-to-be-backward-co.patch"
 SRC_URI += "file://0002-Add-new-Software-Version-Incompatible-error.patch"
 
