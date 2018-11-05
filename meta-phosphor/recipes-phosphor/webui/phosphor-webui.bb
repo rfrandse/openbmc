@@ -31,7 +31,6 @@ export CXXFLAGS = "${BUILD_CXXFLAGS}"
 FILES_${PN} += "${datadir}/www/*"
 
 do_compile () {
-    cp ${WORKDIR}/builtOnOpenBMC.png ${S}/app/assets/images/builtOnOpenBMC.png
     cd ${S}
     rm -rf node_modules
     npm --loglevel info --proxy=${HTTP_PROXY} --https-proxy=${HTTPS_PROXY} install
