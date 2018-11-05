@@ -2,16 +2,11 @@
 # management and resolution.
 
 LICENSE = "Apache-2.0"
-SRC_URI = "git://github.com/openbmc/phosphor-webui.git"
-SRC_URI += "file://0001-Set-the-Host-Time-if-Split-and-NTP.patch"
-SRC_URI += "file://0001-Set-Host-Time-from-correct-fields.patch"
-SRC_URI += "file://0001-Remove-activation-and-fault-from-hardware-view.patch"
-SRC_URI += "file://0001-Add-IBM-Branding.patch"
-SRC_URI += "file://builtOnOpenBMC.png"
-SRC_URI += "file://0001-User-Management-Do-not-autocomplete-passwords.patch"
+
+SRC_URI += "git://git@github.ibm.com/openbmc/phosphor-webui.git;branch=OP920.10;protocol=ssh"
 
 LIC_FILES_CHKSUM = "file://LICENSE;md5=e3fc50a88d0a364313df4b21ef20c29e"
-SRCREV = "8d6f37f9eba1069dc7745bb39b29c786fda3a36a"
+SRCREV = "d4dd0092cca6c4b5a7f34f9900195297d340cef1"
 S = "${WORKDIR}/git"
 
 DEPENDS_prepend = "nodejs-native "

@@ -11,13 +11,8 @@ inherit phosphor-dbus-yaml
 
 DEPENDS += "autoconf-archive-native"
 DEPENDS += "sdbus++-native"
-
-#SRC_URI += "git://github.com/openbmc/phosphor-dbus-interfaces"
-#SRCREV = "bf21cfa8640c968a5e825b141866b858118fb1a1"
-SRC_URI += "git://github.com/geissonator/phosphor-dbus-interfaces;branch=ldap"
-SRCREV = "edfc8d57d850bf0f4f6ca778c17d61903dec080b"
-SRC_URI += "file://0001-DO-NOT-MERGE-SNMP-Client-Interface-to-be-backward-co.patch"
-SRC_URI += "file://0002-Add-new-Software-Version-Incompatible-error.patch"
+SRC_URI += "git://git@github.ibm.com/openbmc/phosphor-dbus-interfaces;branch=OP920.10;protocol=ssh"
+SRCREV = "ba829122e928dcac92b38824dc01b24ad395c074"
 
 DEPENDS_remove_class-native = "sdbus++-native"
 DEPENDS_remove_class-nativesdk = "sdbus++-native"
