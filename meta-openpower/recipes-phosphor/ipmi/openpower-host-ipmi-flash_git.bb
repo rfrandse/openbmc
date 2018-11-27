@@ -22,7 +22,7 @@ HOSTIPMI_PROVIDER_LIBRARY += "libhiomap.so"
 S = "${WORKDIR}/git"
 
 SRC_URI += "git://git@github.ibm.com/openbmc/openpower-host-ipmi-flash;branch=OP920.10;protocol=ssh"
-SRCREV = "0f8dbf087bcada2bbc6e81c6d630d86c4e07bc3e"
+SRCREV = "4ee82a9e194c5fe05673e91049a4e549ab916fcd"
 
 FILES_${PN}_append = " ${libdir}/ipmid-providers/lib*${SOLIBS}"
 FILES_${PN}_append = " ${libdir}/host-ipmid/lib*${SOLIBS}"
