@@ -36,7 +36,7 @@ DBUS_SERVICE_phosphor-ldap = " \
         xyz.openbmc_project.LDAP.PrivilegeMapper.service \
 "
 
-SRC_URI += "git://git@github.ibm.com/openbmc/phosphor-user-manager;branch=OP920.10;protocol=ssh"
+SRC_URI += "git://git@github.com/rfrandse/phosphor-user-manager;branch=OP920.10;protocol=ssh"
 SRCREV = "1c6032e448a3d15add5d7ac4b27cb0e4d2a2972b"
 SRC_URI += "file://add_groups_workaround.sh"
 

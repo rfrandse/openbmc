@@ -14,7 +14,7 @@ RDEPENDS_${PN} += "libsystemd"
 
 S = "${WORKDIR}/git"
 
-SRC_URI += "git://git@github.ibm.com/openbmc/mboxbridge.git;branch=OP920.10;protocol=ssh"
+SRC_URI += "git://git@github.com/rfrandse/mboxbridge.git;branch=OP920.10;protocol=ssh"
 
 SRC_URI += "file://99-aspeed-mbox.rules"
 SRC_URI += "file://99-aspeed-lpc-ctrl.rules"

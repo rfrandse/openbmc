@@ -11,7 +11,7 @@ inherit obmc-phosphor-dbus-service
 LICENSE = "Apache-2.0"
 LIC_FILES_CHKSUM = "file://${WORKDIR}/git/LICENSE;md5=86d3f3a95c324c9479bd8986968f4327"
 
-SRC_URI += "git://git@github.ibm.com/openbmc/phosphor-snmp;branch=OP920.10;protocol=ssh"
+SRC_URI += "git://git@github.com/rfrandse/phosphor-snmp;branch=OP920.10;protocol=ssh"
 SRCREV = "bc270a1592626e51fb3e7cccdd31dbcf603b9fa2"
 
 DBUS_SERVICE_${PN} += "xyz.openbmc_project.Network.SNMP.service"

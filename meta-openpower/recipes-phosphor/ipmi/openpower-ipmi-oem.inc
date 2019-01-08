@@ -1,5 +1,5 @@
 HOMEPAGE = "https://github.com/openbmc/openpower-host-ipmi-oem"
 LICENSE = "Apache-2.0"
 LIC_FILES_CHKSUM = "file://LICENSE;md5=fa818a259cbed7ce8bc2a22d35a464fc"
-SRC_URI += "git://git@github.ibm.com/openbmc/openpower-host-ipmi-oem;branch=OP920.10;protocol=ssh"
+SRC_URI += "git://git@github.com/rfrandse/openpower-host-ipmi-oem;branch=OP920.10;protocol=ssh"
 SRCREV = "e5deb0a5dba7014a00b67b7244b3c1128cf9b3f8"
