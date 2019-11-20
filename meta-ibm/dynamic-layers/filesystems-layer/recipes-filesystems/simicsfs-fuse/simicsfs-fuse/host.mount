@@ -1,0 +1,11 @@
+[Unit]
+Description=Mount host filesystem inside guest
+
+[Mount]
+What=simicsfs-client
+Options=--populate
+Where=/host
+Type=fuse
+
+[Install]
+WantedBy=multi-user.target
