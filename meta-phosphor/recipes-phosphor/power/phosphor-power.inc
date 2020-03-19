@@ -1,5 +1,5 @@
 HOMEPAGE = "https://github.com/openbmc/phosphor-power"
 LICENSE = "Apache-2.0"
 LIC_FILES_CHKSUM = "file://${S}/LICENSE;md5=e3fc50a88d0a364313df4b21ef20c29e"
-SRC_URI += "git://github.com/openbmc/phosphor-power"
-SRCREV = "2874e9022035712b7c882e486b7efcaebb70dd6e"
+SRC_URI += "git://git@github.ibm.com/openbmc/phosphor-power;nobranch=1;protocol=ssh"
+SRCREV = "1ca2d13945e4cb792d147cc04da6d6e66c0eb7fe"
