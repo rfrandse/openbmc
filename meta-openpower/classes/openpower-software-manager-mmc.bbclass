@@ -6,3 +6,5 @@ SYSTEMD_SERVICE:${PN} += " \
     openpower-process-host-firmware.service \
     openpower-update-bios-attr-table.service \
 "
+
+RDEPENDS:${PN}:append:p10bmc = " phosphor-hostfw-image"
