@@ -2,7 +2,7 @@ HOMEPAGE = "https://github.com/openbmc/openpower-vpd-parser"
 LICENSE = "Apache-2.0"
 LIC_FILES_CHKSUM = "file://${COREBASE}/meta/files/common-licenses/Apache-2.0;md5=89aea4e17d99a7cacdbeed46a0096b10"
 SRC_URI += "git://github.com/ibm-openbmc/openpower-vpd-parser;nobranch=1"
-SRCREV = "a8871f71d4ea17e2b9cd9b557f73a793a02e5fcb"
+SRCREV = "4fbcb61ba0fed5ac8da2662ea565d9db74be43a3"
 
 # ECC private patch
 # Required to  stay in 1020-ghe branch
