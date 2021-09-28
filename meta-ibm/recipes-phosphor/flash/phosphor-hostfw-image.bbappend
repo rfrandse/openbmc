@@ -5,12 +5,12 @@ SRC_URI:append:p10bmc = " https://rchweb.rchland.ibm.com/afs/rchland/projects/es
 
 # P10 systems
 RELEASE:p10bmc ?= "fw1020"
-VERSION:p10bmc ?= "1020.2136.20210910a"
+VERSION:p10bmc ?= "1020.2138.20210914a"
 TARBALL_NAME:p10bmc ?= "obmc-phosphor-image-rainier.ext4.mmc.tar;name=rainier"
-SRC_URI[rainier.sha256sum] = "cb2c9b05bc671de905ce7854481a5b8ac107d29ce17308d8711e0825d260f2c2"
+SRC_URI[rainier.sha256sum] = "7bace7cc144093f79bf4ec9c64c67dc5546fae3c9c9e155eed41f8cd30fa56fe"
 
 ELEMENTS_JSON:p10bmc ?= "host-fw-elements_lids.json;name=json"
-SRC_URI[json.sha256sum] = "567bbdfb30c8317433ba8bb77da73775eb6ae3d0941682b86602c5d6bf24a0c8"
+SRC_URI[json.sha256sum] = "8876249750165fc6480df41e1cb5631087dc2620890304599f79e85993b7f54e"
 
 # Tacoma
 RELEASE:witherspoon-tacoma ?= "fw1009"
