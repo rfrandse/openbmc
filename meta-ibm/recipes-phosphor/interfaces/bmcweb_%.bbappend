@@ -8,6 +8,7 @@ EXTRA_OEMESON:append = " \
 EXTRA_OEMESON:append:p10bmc = " \
     -Dibm-lamp-test=enabled \
     -Dhw-isolation=enabled \
+    -Dredfish-license=enabled \
 "
 
 inherit obmc-phosphor-discovery-service
