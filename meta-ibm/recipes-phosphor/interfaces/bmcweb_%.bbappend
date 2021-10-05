@@ -8,7 +8,12 @@ EXTRA_OEMESON:append = " \
 EXTRA_OEMESON:append:p10bmc = " \
     -Dibm-lamp-test=enabled \
     -Dhw-isolation=enabled \
+    -Dhypervisor-serial-socket=enabled \
     -Dredfish-license=enabled \
+"
+
+EXTRA_OEMESON:append:witherspoon-tacoma = " \
+    -Dhypervisor-serial-socket=enabled \
 "
 
 inherit obmc-phosphor-discovery-service
