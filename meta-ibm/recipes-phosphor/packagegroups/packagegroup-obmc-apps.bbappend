@@ -26,6 +26,7 @@ EXTRA_IBM_LOGGING_PKGS:p10bmc = " \
     openpower-pel-parsers \
     hostboot-pel-parsers \
     openpower-hw-diags-pel-parser-data \
+    python3-sbe-log-parsers \
 "
 
 RDEPENDS:${PN}-inventory:append:ibm-ac-server = " openpower-fru-vpd openpower-occ-control phosphor-cooling-type virtual/obmc-gpio-presence"
