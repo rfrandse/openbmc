@@ -38,7 +38,10 @@ do_compile:prepend:p10bmc() {
     install -m 0440 ${B}/squashfs-root-rainier/* ${B}/squashfs-root-combined/
     install -m 0440 ${B}/squashfs-root-everest/* ${B}/squashfs-root-combined/
 
-    mksquashfs ${B}/squashfs-root-combined ${S}/image-hostfw -all-root
+    # Create the squashfs in the ${B} directory since it gets cleaned on every
+    # run, otherwise the mksquashfs command will duplicate the content.
+    mksquashfs ${B}/squashfs-root-combined ${B}/image-hostfw -all-root
+    install -m 0440 ${B}/image-hostfw ${S}/image-hostfw
 }
 
 do_compile:append() {
