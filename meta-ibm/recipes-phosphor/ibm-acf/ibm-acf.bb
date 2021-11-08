@@ -4,7 +4,7 @@ LICENSE = "Apache-2.0"
 LIC_FILES_CHKSUM = "file://LICENSE;md5=e3fc50a88d0a364313df4b21ef20c29e"
 
 SRC_URI = "git://github.com/ibm-openbmc/ibm-acf"
-SRCREV = "2843ce05a3dafd21f2d4ad0e4e08c2f5360752ca"
+SRCREV = "f4713055b66978dd9d433fd60394f5298ea308e7"
 
 inherit meson
 #JSMN download required
