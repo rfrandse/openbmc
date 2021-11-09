@@ -24,6 +24,8 @@ do_install:append(){
     install -d ${D}/${servicedir}/ibm-acf
     install -m 755 ${S}/subprojects/ce-login/p10-celogin-lab-pub.der \
                    ${D}/${servicedir}/ibm-acf/ibmacf-dev.key
+    install -m 755 ${S}/subprojects/ce-login/p10-celogin-prod-pub.der \
+                   ${D}/${servicedir}/ibm-acf/ibmacf-prod.key
 }
 
 
