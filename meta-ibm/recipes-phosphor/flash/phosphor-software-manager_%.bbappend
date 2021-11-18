@@ -8,6 +8,9 @@ BMC_KERNEL_MTD:ibm-ac-server = "bmc"
 BMC_KERNEL_MTD:p10bmc = "bmc"
 BMC_KERNEL_MTD:mihawk = "bmc"
 
+# Enable update access key verification
+PACKAGECONFIG:append:p10bmc = " verify-update-access-key"
+
 # Enable signature verification
 PACKAGECONFIG:append:ibm-ac-server = " verify_signature"
 PACKAGECONFIG:append:p10bmc = " verify_signature"
