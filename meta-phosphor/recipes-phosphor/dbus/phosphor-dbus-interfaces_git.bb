@@ -17,7 +17,7 @@ DEPENDS += " \
         systemd \
         "
 SRC_URI = "git://github.com/ibm-openbmc/phosphor-dbus-interfaces;nobranch=1"
-SRCREV = "9b7256ae4cb3953202116abdcd03343c9866b3f0"
+SRCREV = "8e1862446a7514b2c6463497da5616a652156ea3"
 
 # Process OBMC_ORG_YAML_SUBDIRS to create Meson config options.
 # ex. xyz/openbmc_project -> -Ddata_xyz_openbmc_project=true
