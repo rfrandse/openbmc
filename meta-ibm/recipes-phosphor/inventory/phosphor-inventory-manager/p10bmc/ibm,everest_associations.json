@@ -232,7 +232,6 @@
                     },
                     "paths":
                     [
-                        "/xyz/openbmc_project/inventory/system/chassis/motherboard/pcieslot0",
                         "/xyz/openbmc_project/inventory/system/chassis/motherboard/pcieslot1",
                         "/xyz/openbmc_project/inventory/system/chassis/motherboard/pcieslot2",
                         "/xyz/openbmc_project/inventory/system/chassis/motherboard/pcieslot3",
@@ -243,6 +242,7 @@
                         "/xyz/openbmc_project/inventory/system/chassis/motherboard/pcieslot8",
                         "/xyz/openbmc_project/inventory/system/chassis/motherboard/pcieslot9",
                         "/xyz/openbmc_project/inventory/system/chassis/motherboard/pcieslot10",
+                        "/xyz/openbmc_project/inventory/system/chassis/motherboard/pcieslot11",
                         "/xyz/openbmc_project/inventory/system/chassis/motherboard/dasd_backplane/nvme0",
                         "/xyz/openbmc_project/inventory/system/chassis/motherboard/dasd_backplane/nvme1",
                         "/xyz/openbmc_project/inventory/system/chassis/motherboard/dasd_backplane/nvme2",
@@ -414,7 +414,7 @@
             ]
         },
         {
-            "path": "system/chassis/motherboard/pcieslot0",
+            "path": "system/chassis/motherboard/pcieslot1",
             "endpoints":
             [
                 {
@@ -442,7 +442,7 @@
             ]
         },
         {
-            "path": "system/chassis/motherboard/pcieslot1",
+            "path": "system/chassis/motherboard/pcieslot2",
             "endpoints":
             [
                 {
@@ -470,7 +470,7 @@
             ]
         },
         {
-            "path": "system/chassis/motherboard/pcieslot2",
+            "path": "system/chassis/motherboard/pcieslot3",
             "endpoints":
             [
                 {
@@ -498,7 +498,7 @@
             ]
         },
         {
-            "path": "system/chassis/motherboard/pcieslot3",
+            "path": "system/chassis/motherboard/pcieslot4",
             "endpoints":
             [
                 {
@@ -526,7 +526,7 @@
             ]
         },
         {
-            "path": "system/chassis/motherboard/pcieslot4",
+            "path": "system/chassis/motherboard/pcieslot5",
             "endpoints":
             [
                 {
@@ -554,7 +554,7 @@
             ]
         },
         {
-            "path": "system/chassis/motherboard/pcieslot5",
+            "path": "system/chassis/motherboard/pcieslot6",
             "endpoints":
             [
                 {
@@ -582,7 +582,7 @@
             ]
         },
         {
-            "path": "system/chassis/motherboard/pcieslot6",
+            "path": "system/chassis/motherboard/pcieslot7",
             "endpoints":
             [
                 {
@@ -610,7 +610,7 @@
             ]
         },
         {
-            "path": "system/chassis/motherboard/pcieslot7",
+            "path": "system/chassis/motherboard/pcieslot8",
             "endpoints":
             [
                 {
@@ -638,7 +638,7 @@
             ]
         },
         {
-            "path": "system/chassis/motherboard/pcieslot8",
+            "path": "system/chassis/motherboard/pcieslot9",
             "endpoints":
             [
                 {
@@ -666,7 +666,7 @@
             ]
         },
         {
-            "path": "system/chassis/motherboard/pcieslot9",
+            "path": "system/chassis/motherboard/pcieslot10",
             "endpoints":
             [
                 {
@@ -694,7 +694,7 @@
             ]
         },
         {
-            "path": "system/chassis/motherboard/pcieslot10",
+            "path": "system/chassis/motherboard/pcieslot11",
             "endpoints":
             [
                 {
@@ -722,7 +722,7 @@
             ]
         },
         {
-            "path": "system/chassis/motherboard/pcie_cable_card0/cxp_top",
+            "path": "system/chassis/motherboard/pcieslot1/pcie_card1/cxp_top",
             "endpoints":
             [
                 {
@@ -750,7 +750,7 @@
             ]
         },
         {
-            "path": "system/chassis/motherboard/pcie_cable_card0/cxp_bot",
+            "path": "system/chassis/motherboard/pcieslot1/pcie_card1/cxp_bot",
             "endpoints":
             [
                 {
@@ -778,7 +778,7 @@
             ]
         },
         {
-            "path": "system/chassis/motherboard/pcie_cable_card1/cxp_top",
+            "path": "system/chassis/motherboard/pcieslot2/pcie_card2/cxp_top",
             "endpoints":
             [
                 {
@@ -806,7 +806,7 @@
             ]
         },
         {
-            "path": "system/chassis/motherboard/pcie_cable_card1/cxp_bot",
+            "path": "system/chassis/motherboard/pcieslot2/pcie_card2/cxp_bot",
             "endpoints":
             [
                 {
@@ -834,7 +834,7 @@
             ]
         },
         {
-            "path": "system/chassis/motherboard/pcie_cable_card2/cxp_top",
+            "path": "system/chassis/motherboard/pcieslot3/pcie_card3/cxp_top",
             "endpoints":
             [
                 {
@@ -862,7 +862,7 @@
             ]
         },
         {
-            "path": "system/chassis/motherboard/pcie_cable_card2/cxp_bot",
+            "path": "system/chassis/motherboard/pcieslot3/pcie_card3/cxp_bot",
             "endpoints":
             [
                 {
@@ -890,7 +890,7 @@
             ]
         },
         {
-            "path": "system/chassis/motherboard/pcie_cable_card3/cxp_top",
+            "path": "system/chassis/motherboard/pcieslot4/pcie_card4/cxp_top",
             "endpoints":
             [
                 {
@@ -918,7 +918,7 @@
             ]
         },
         {
-            "path": "system/chassis/motherboard/pcie_cable_card3/cxp_bot",
+            "path": "system/chassis/motherboard/pcieslot4/pcie_card4/cxp_bot",
             "endpoints":
             [
                 {
@@ -946,7 +946,7 @@
             ]
         },
         {
-            "path": "system/chassis/motherboard/pcie_cable_card4/cxp_top",
+            "path": "system/chassis/motherboard/pcieslot5/pcie_card5/cxp_top",
             "endpoints":
             [
                 {
@@ -974,7 +974,7 @@
             ]
         },
         {
-            "path": "system/chassis/motherboard/pcie_cable_card4/cxp_bot",
+            "path": "system/chassis/motherboard/pcieslot5/pcie_card5/cxp_bot",
             "endpoints":
             [
                 {
@@ -1002,7 +1002,7 @@
             ]
         },
         {
-            "path": "system/chassis/motherboard/pcie_cable_card6/cxp_top",
+            "path": "system/chassis/motherboard/pcieslot7/pcie_card7/cxp_top",
             "endpoints":
             [
                 {
@@ -1030,7 +1030,7 @@
             ]
         },
         {
-            "path": "system/chassis/motherboard/pcie_cable_card6/cxp_bot",
+            "path": "system/chassis/motherboard/pcieslot7/pcie_card7/cxp_bot",
             "endpoints":
             [
                 {
@@ -1058,7 +1058,7 @@
             ]
         },
         {
-            "path": "system/chassis/motherboard/pcie_cable_card7/cxp_top",
+            "path": "system/chassis/motherboard/pcieslot8/pcie_card8/cxp_top",
             "endpoints":
             [
                 {
@@ -1086,7 +1086,7 @@
             ]
         },
         {
-            "path": "system/chassis/motherboard/pcie_cable_card7/cxp_bot",
+            "path": "system/chassis/motherboard/pcieslot8/pcie_card8/cxp_bot",
             "endpoints":
             [
                 {
@@ -1114,7 +1114,7 @@
             ]
         },
         {
-            "path": "system/chassis/motherboard/pcie_cable_card9/cxp_top",
+            "path": "system/chassis/motherboard/pcieslot10/pcie_card10/cxp_top",
             "endpoints":
             [
                 {
@@ -1142,7 +1142,7 @@
             ]
         },
         {
-            "path": "system/chassis/motherboard/pcie_cable_card9/cxp_bot",
+            "path": "system/chassis/motherboard/pcieslot10/pcie_card10/cxp_bot",
             "endpoints":
             [
                 {
@@ -1170,7 +1170,7 @@
             ]
         },
         {
-            "path": "system/chassis/motherboard/pcie_cable_card10/cxp_top",
+            "path": "system/chassis/motherboard/pcieslot11/pcie_card11/cxp_top",
             "endpoints":
             [
                 {
@@ -1198,7 +1198,7 @@
             ]
         },
         {
-            "path": "system/chassis/motherboard/pcie_cable_card10/cxp_bot",
+            "path": "system/chassis/motherboard/pcieslot11/pcie_card11/cxp_bot",
             "endpoints":
             [
                 {
@@ -1814,7 +1814,7 @@
             ]
         },
         {
-            "path": "system/chassis/motherboard/cpu0",
+            "path": "system/chassis/motherboard/dcm1/cpu0",
             "endpoints":
             [
                 {
@@ -1842,7 +1842,7 @@
             ]
         },
         {
-            "path": "system/chassis/motherboard/cpu1",
+            "path": "system/chassis/motherboard/dcm1/cpu1",
             "endpoints":
             [
                 {
@@ -1870,7 +1870,7 @@
             ]
         },
         {
-            "path": "system/chassis/motherboard/cpu2",
+            "path": "system/chassis/motherboard/dcm2/cpu0",
             "endpoints":
             [
                 {
@@ -1898,7 +1898,7 @@
             ]
         },
         {
-            "path": "system/chassis/motherboard/cpu3",
+            "path": "system/chassis/motherboard/dcm2/cpu1",
             "endpoints":
             [
                 {
@@ -1926,7 +1926,7 @@
             ]
         },
         {
-            "path": "system/chassis/motherboard/cpu4",
+            "path": "system/chassis/motherboard/dcm3/cpu0",
             "endpoints":
             [
                 {
@@ -1954,7 +1954,7 @@
             ]
         },
         {
-            "path": "system/chassis/motherboard/cpu5",
+            "path": "system/chassis/motherboard/dcm3/cpu1",
             "endpoints":
             [
                 {
@@ -1982,7 +1982,7 @@
             ]
         },
         {
-            "path": "system/chassis/motherboard/cpu6",
+            "path": "system/chassis/motherboard/dcm0/cpu0",
             "endpoints":
             [
                 {
@@ -2010,7 +2010,7 @@
             ]
         },
         {
-            "path": "system/chassis/motherboard/cpu7",
+            "path": "system/chassis/motherboard/dcm0/cpu1",
             "endpoints":
             [
                 {
