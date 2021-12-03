@@ -32,11 +32,11 @@ do_compile[cleandirs] = "${B}"
 do_compile:prepend:p10bmc() {
     install -d ${B}/squashfs-root-combined
 
-    unsquashfs -d ${B}/squashfs-root-rainier ${S}/rainier/image-hostfw
     unsquashfs -d ${B}/squashfs-root-everest ${S}/everest/image-hostfw
+    unsquashfs -d ${B}/squashfs-root-rainier ${S}/rainier/image-hostfw
 
-    install -m 0440 ${B}/squashfs-root-rainier/* ${B}/squashfs-root-combined/
     install -m 0440 ${B}/squashfs-root-everest/* ${B}/squashfs-root-combined/
+    install -m 0440 ${B}/squashfs-root-rainier/* ${B}/squashfs-root-combined/
 
     # Create the squashfs in the ${B} directory since it gets cleaned on every
     # run, otherwise the mksquashfs command will duplicate the content.
