@@ -44,6 +44,15 @@
         }
       },
       {
+          "inventoryPath": "/system/chassis/motherboard/unit0",
+          "inherit": false,
+          "extraInterfaces": {
+              "xyz.openbmc_project.Inventory.Item": {
+                  "PrettyName": "Oscillator Reference Clock"
+              }
+          }
+      },
+      {
         "inventoryPath": "/system",
         "inherit": false,
         "isSystemVpd": true,
@@ -2493,6 +2502,24 @@
                   "PrettyName": "DDR Memory Port"
               }
           }
+      },
+      {
+          "inventoryPath": "/system/chassis/motherboard/dimm0/unit2",
+          "inherit": false,
+          "extraInterfaces": {
+              "xyz.openbmc_project.Inventory.Item": {
+                  "PrettyName": "Onboard Memory Power Control Device"
+              }
+          }
+      },
+      {
+          "inventoryPath": "/system/chassis/motherboard/dimm0/unit3",
+          "inherit": false,
+          "extraInterfaces": {
+              "xyz.openbmc_project.Inventory.Item": {
+                  "PrettyName": "Onboard Memory Power Management IC"
+              }
+          }
       }
     ],
     "/sys/bus/i2c/drivers/at24/301-0050/eeprom" :[
@@ -2526,6 +2553,24 @@
           "extraInterfaces": {
               "xyz.openbmc_project.Inventory.Item": {
                   "PrettyName": "DDR Memory Port"
+              }
+          }
+      },
+      {
+          "inventoryPath": "/system/chassis/motherboard/dimm1/unit2",
+          "inherit": false,
+          "extraInterfaces": {
+              "xyz.openbmc_project.Inventory.Item": {
+                  "PrettyName": "Onboard Memory Power Control Device"
+              }
+          }
+      },
+      {
+          "inventoryPath": "/system/chassis/motherboard/dimm1/unit3",
+          "inherit": false,
+          "extraInterfaces": {
+              "xyz.openbmc_project.Inventory.Item": {
+                  "PrettyName": "Onboard Memory Power Management IC"
               }
           }
       }
@@ -2563,6 +2608,24 @@
                   "PrettyName": "DDR Memory Port"
               }
           }
+      },
+      {
+          "inventoryPath": "/system/chassis/motherboard/dimm2/unit2",
+          "inherit": false,
+          "extraInterfaces": {
+              "xyz.openbmc_project.Inventory.Item": {
+                  "PrettyName": "Onboard Memory Power Control Device"
+              }
+          }
+      },
+      {
+          "inventoryPath": "/system/chassis/motherboard/dimm2/unit3",
+          "inherit": false,
+          "extraInterfaces": {
+              "xyz.openbmc_project.Inventory.Item": {
+                  "PrettyName": "Onboard Memory Power Management IC"
+              }
+          }
       }
     ],
     "/sys/bus/i2c/drivers/at24/312-0050/eeprom" :[
@@ -2596,6 +2659,24 @@
           "extraInterfaces": {
               "xyz.openbmc_project.Inventory.Item": {
                   "PrettyName": "DDR Memory Port"
+              }
+          }
+      },
+      {
+          "inventoryPath": "/system/chassis/motherboard/dimm3/unit2",
+          "inherit": false,
+          "extraInterfaces": {
+              "xyz.openbmc_project.Inventory.Item": {
+                  "PrettyName": "Onboard Memory Power Control Device"
+              }
+          }
+      },
+      {
+          "inventoryPath": "/system/chassis/motherboard/dimm3/unit3",
+          "inherit": false,
+          "extraInterfaces": {
+              "xyz.openbmc_project.Inventory.Item": {
+                  "PrettyName": "Onboard Memory Power Management IC"
               }
           }
       }
@@ -2633,6 +2714,24 @@
                   "PrettyName": "DDR Memory Port"
               }
           }
+      },
+      {
+          "inventoryPath": "/system/chassis/motherboard/dimm4/unit2",
+          "inherit": false,
+          "extraInterfaces": {
+              "xyz.openbmc_project.Inventory.Item": {
+                  "PrettyName": "Onboard Memory Power Control Device"
+              }
+          }
+      },
+      {
+          "inventoryPath": "/system/chassis/motherboard/dimm4/unit3",
+          "inherit": false,
+          "extraInterfaces": {
+              "xyz.openbmc_project.Inventory.Item": {
+                  "PrettyName": "Onboard Memory Power Management IC"
+              }
+          }
       }
     ],
     "/sys/bus/i2c/drivers/at24/315-0050/eeprom" :[
@@ -2666,6 +2765,24 @@
           "extraInterfaces": {
               "xyz.openbmc_project.Inventory.Item": {
                   "PrettyName": "DDR Memory Port"
+              }
+          }
+      },
+      {
+          "inventoryPath": "/system/chassis/motherboard/dimm5/unit2",
+          "inherit": false,
+          "extraInterfaces": {
+              "xyz.openbmc_project.Inventory.Item": {
+                  "PrettyName": "Onboard Memory Power Control Device"
+              }
+          }
+      },
+      {
+          "inventoryPath": "/system/chassis/motherboard/dimm5/unit3",
+          "inherit": false,
+          "extraInterfaces": {
+              "xyz.openbmc_project.Inventory.Item": {
+                  "PrettyName": "Onboard Memory Power Management IC"
               }
           }
       }
@@ -2703,6 +2820,24 @@
                   "PrettyName": "DDR Memory Port"
               }
           }
+      },
+      {
+          "inventoryPath": "/system/chassis/motherboard/dimm6/unit2",
+          "inherit": false,
+          "extraInterfaces": {
+              "xyz.openbmc_project.Inventory.Item": {
+                  "PrettyName": "Onboard Memory Power Control Device"
+              }
+          }
+      },
+      {
+          "inventoryPath": "/system/chassis/motherboard/dimm6/unit3",
+          "inherit": false,
+          "extraInterfaces": {
+              "xyz.openbmc_project.Inventory.Item": {
+                  "PrettyName": "Onboard Memory Power Management IC"
+              }
+          }
       }
     ],
     "/sys/bus/i2c/drivers/at24/314-0050/eeprom" :[
@@ -2736,6 +2871,24 @@
           "extraInterfaces": {
               "xyz.openbmc_project.Inventory.Item": {
                   "PrettyName": "DDR Memory Port"
+              }
+          }
+      },
+      {
+          "inventoryPath": "/system/chassis/motherboard/dimm7/unit2",
+          "inherit": false,
+          "extraInterfaces": {
+              "xyz.openbmc_project.Inventory.Item": {
+                  "PrettyName": "Onboard Memory Power Control Device"
+              }
+          }
+      },
+      {
+          "inventoryPath": "/system/chassis/motherboard/dimm7/unit3",
+          "inherit": false,
+          "extraInterfaces": {
+              "xyz.openbmc_project.Inventory.Item": {
+                  "PrettyName": "Onboard Memory Power Management IC"
               }
           }
       }
@@ -2773,6 +2926,24 @@
                   "PrettyName": "DDR Memory Port"
               }
           }
+      },
+      {
+          "inventoryPath": "/system/chassis/motherboard/dimm8/unit2",
+          "inherit": false,
+          "extraInterfaces": {
+              "xyz.openbmc_project.Inventory.Item": {
+                  "PrettyName": "Onboard Memory Power Control Device"
+              }
+          }
+      },
+      {
+          "inventoryPath": "/system/chassis/motherboard/dimm8/unit3",
+          "inherit": false,
+          "extraInterfaces": {
+              "xyz.openbmc_project.Inventory.Item": {
+                  "PrettyName": "Onboard Memory Power Management IC"
+              }
+          }
       }
     ],
     "/sys/bus/i2c/drivers/at24/417-0050/eeprom" :[
@@ -2806,6 +2977,24 @@
           "extraInterfaces": {
               "xyz.openbmc_project.Inventory.Item": {
                   "PrettyName": "DDR Memory Port"
+              }
+          }
+      },
+      {
+          "inventoryPath": "/system/chassis/motherboard/dimm9/unit2",
+          "inherit": false,
+          "extraInterfaces": {
+              "xyz.openbmc_project.Inventory.Item": {
+                  "PrettyName": "Onboard Memory Power Control Device"
+              }
+          }
+      },
+      {
+          "inventoryPath": "/system/chassis/motherboard/dimm9/unit3",
+          "inherit": false,
+          "extraInterfaces": {
+              "xyz.openbmc_project.Inventory.Item": {
+                  "PrettyName": "Onboard Memory Power Management IC"
               }
           }
       }
@@ -2843,6 +3032,24 @@
                   "PrettyName": "DDR Memory Port"
               }
           }
+      },
+      {
+          "inventoryPath": "/system/chassis/motherboard/dimm10/unit2",
+          "inherit": false,
+          "extraInterfaces": {
+              "xyz.openbmc_project.Inventory.Item": {
+                  "PrettyName": "Onboard Memory Power Control Device"
+              }
+          }
+      },
+      {
+          "inventoryPath": "/system/chassis/motherboard/dimm10/unit3",
+          "inherit": false,
+          "extraInterfaces": {
+              "xyz.openbmc_project.Inventory.Item": {
+                  "PrettyName": "Onboard Memory Power Management IC"
+              }
+          }
       }
     ],
     "/sys/bus/i2c/drivers/at24/415-0050/eeprom" :[
@@ -2876,6 +3083,24 @@
           "extraInterfaces": {
               "xyz.openbmc_project.Inventory.Item": {
                   "PrettyName": "DDR Memory Port"
+              }
+          }
+      },
+      {
+          "inventoryPath": "/system/chassis/motherboard/dimm11/unit2",
+          "inherit": false,
+          "extraInterfaces": {
+              "xyz.openbmc_project.Inventory.Item": {
+                  "PrettyName": "Onboard Memory Power Control Device"
+              }
+          }
+      },
+      {
+          "inventoryPath": "/system/chassis/motherboard/dimm11/unit3",
+          "inherit": false,
+          "extraInterfaces": {
+              "xyz.openbmc_project.Inventory.Item": {
+                  "PrettyName": "Onboard Memory Power Management IC"
               }
           }
       }
@@ -2913,6 +3138,24 @@
                   "PrettyName": "DDR Memory Port"
               }
           }
+      },
+      {
+          "inventoryPath": "/system/chassis/motherboard/dimm12/unit2",
+          "inherit": false,
+          "extraInterfaces": {
+              "xyz.openbmc_project.Inventory.Item": {
+                  "PrettyName": "Onboard Memory Power Control Device"
+              }
+          }
+      },
+      {
+          "inventoryPath": "/system/chassis/motherboard/dimm12/unit3",
+          "inherit": false,
+          "extraInterfaces": {
+              "xyz.openbmc_project.Inventory.Item": {
+                  "PrettyName": "Onboard Memory Power Management IC"
+              }
+          }
       }
     ],
     "/sys/bus/i2c/drivers/at24/410-0050/eeprom" :[
@@ -2946,6 +3189,24 @@
           "extraInterfaces": {
               "xyz.openbmc_project.Inventory.Item": {
                   "PrettyName": "DDR Memory Port"
+              }
+          }
+      },
+      {
+          "inventoryPath": "/system/chassis/motherboard/dimm13/unit2",
+          "inherit": false,
+          "extraInterfaces": {
+              "xyz.openbmc_project.Inventory.Item": {
+                  "PrettyName": "Onboard Memory Power Control Device"
+              }
+          }
+      },
+      {
+          "inventoryPath": "/system/chassis/motherboard/dimm13/unit3",
+          "inherit": false,
+          "extraInterfaces": {
+              "xyz.openbmc_project.Inventory.Item": {
+                  "PrettyName": "Onboard Memory Power Management IC"
               }
           }
       }
@@ -2983,6 +3244,24 @@
                   "PrettyName": "DDR Memory Port"
               }
           }
+      },
+      {
+          "inventoryPath": "/system/chassis/motherboard/dimm14/unit2",
+          "inherit": false,
+          "extraInterfaces": {
+              "xyz.openbmc_project.Inventory.Item": {
+                  "PrettyName": "Onboard Memory Power Control Device"
+              }
+          }
+      },
+      {
+          "inventoryPath": "/system/chassis/motherboard/dimm14/unit3",
+          "inherit": false,
+          "extraInterfaces": {
+              "xyz.openbmc_project.Inventory.Item": {
+                  "PrettyName": "Onboard Memory Power Management IC"
+              }
+          }
       }
     ],
     "/sys/bus/i2c/drivers/at24/402-0050/eeprom" :[
@@ -3016,6 +3295,24 @@
           "extraInterfaces": {
               "xyz.openbmc_project.Inventory.Item": {
                   "PrettyName": "DDR Memory Port"
+              }
+          }
+      },
+      {
+          "inventoryPath": "/system/chassis/motherboard/dimm15/unit2",
+          "inherit": false,
+          "extraInterfaces": {
+              "xyz.openbmc_project.Inventory.Item": {
+                  "PrettyName": "Onboard Memory Power Control Device"
+              }
+          }
+      },
+      {
+          "inventoryPath": "/system/chassis/motherboard/dimm15/unit3",
+          "inherit": false,
+          "extraInterfaces": {
+              "xyz.openbmc_project.Inventory.Item": {
+                  "PrettyName": "Onboard Memory Power Management IC"
               }
           }
       }
@@ -3053,6 +3350,24 @@
                   "PrettyName": "DDR Memory Port"
               }
           }
+      },
+      {
+          "inventoryPath": "/system/chassis/motherboard/dimm16/unit2",
+          "inherit": false,
+          "extraInterfaces": {
+              "xyz.openbmc_project.Inventory.Item": {
+                  "PrettyName": "Onboard Memory Power Control Device"
+              }
+          }
+      },
+      {
+          "inventoryPath": "/system/chassis/motherboard/dimm16/unit3",
+          "inherit": false,
+          "extraInterfaces": {
+              "xyz.openbmc_project.Inventory.Item": {
+                  "PrettyName": "Onboard Memory Power Management IC"
+              }
+          }
       }
     ],
     "/sys/bus/i2c/drivers/at24/501-0050/eeprom" :[
@@ -3086,6 +3401,24 @@
           "extraInterfaces": {
               "xyz.openbmc_project.Inventory.Item": {
                   "PrettyName": "DDR Memory Port"
+              }
+          }
+      },
+      {
+          "inventoryPath": "/system/chassis/motherboard/dimm17/unit2",
+          "inherit": false,
+          "extraInterfaces": {
+              "xyz.openbmc_project.Inventory.Item": {
+                  "PrettyName": "Onboard Memory Power Control Device"
+              }
+          }
+      },
+      {
+          "inventoryPath": "/system/chassis/motherboard/dimm17/unit3",
+          "inherit": false,
+          "extraInterfaces": {
+              "xyz.openbmc_project.Inventory.Item": {
+                  "PrettyName": "Onboard Memory Power Management IC"
               }
           }
       }
@@ -3123,6 +3456,24 @@
                   "PrettyName": "DDR Memory Port"
               }
           }
+      },
+      {
+          "inventoryPath": "/system/chassis/motherboard/dimm18/unit2",
+          "inherit": false,
+          "extraInterfaces": {
+              "xyz.openbmc_project.Inventory.Item": {
+                  "PrettyName": "Onboard Memory Power Control Device"
+              }
+          }
+      },
+      {
+          "inventoryPath": "/system/chassis/motherboard/dimm18/unit3",
+          "inherit": false,
+          "extraInterfaces": {
+              "xyz.openbmc_project.Inventory.Item": {
+                  "PrettyName": "Onboard Memory Power Management IC"
+              }
+          }
       }
     ],
     "/sys/bus/i2c/drivers/at24/512-0050/eeprom" :[
@@ -3156,6 +3507,24 @@
           "extraInterfaces": {
               "xyz.openbmc_project.Inventory.Item": {
                   "PrettyName": "DDR Memory Port"
+              }
+          }
+      },
+      {
+          "inventoryPath": "/system/chassis/motherboard/dimm19/unit2",
+          "inherit": false,
+          "extraInterfaces": {
+              "xyz.openbmc_project.Inventory.Item": {
+                  "PrettyName": "Onboard Memory Power Control Device"
+              }
+          }
+      },
+      {
+          "inventoryPath": "/system/chassis/motherboard/dimm19/unit3",
+          "inherit": false,
+          "extraInterfaces": {
+              "xyz.openbmc_project.Inventory.Item": {
+                  "PrettyName": "Onboard Memory Power Management IC"
               }
           }
       }
@@ -3193,6 +3562,24 @@
                   "PrettyName": "DDR Memory Port"
               }
           }
+      },
+      {
+          "inventoryPath": "/system/chassis/motherboard/dimm20/unit2",
+          "inherit": false,
+          "extraInterfaces": {
+              "xyz.openbmc_project.Inventory.Item": {
+                  "PrettyName": "Onboard Memory Power Control Device"
+              }
+          }
+      },
+      {
+          "inventoryPath": "/system/chassis/motherboard/dimm20/unit3",
+          "inherit": false,
+          "extraInterfaces": {
+              "xyz.openbmc_project.Inventory.Item": {
+                  "PrettyName": "Onboard Memory Power Management IC"
+              }
+          }
       }
     ],
     "/sys/bus/i2c/drivers/at24/513-0050/eeprom" :[
@@ -3226,6 +3613,24 @@
           "extraInterfaces": {
               "xyz.openbmc_project.Inventory.Item": {
                   "PrettyName": "DDR Memory Port"
+              }
+          }
+      },
+      {
+          "inventoryPath": "/system/chassis/motherboard/dimm21/unit2",
+          "inherit": false,
+          "extraInterfaces": {
+              "xyz.openbmc_project.Inventory.Item": {
+                  "PrettyName": "Onboard Memory Power Control Device"
+              }
+          }
+      },
+      {
+          "inventoryPath": "/system/chassis/motherboard/dimm21/unit3",
+          "inherit": false,
+          "extraInterfaces": {
+              "xyz.openbmc_project.Inventory.Item": {
+                  "PrettyName": "Onboard Memory Power Management IC"
               }
           }
       }
@@ -3263,6 +3668,24 @@
                   "PrettyName": "DDR Memory Port"
               }
           }
+      },
+      {
+          "inventoryPath": "/system/chassis/motherboard/dimm22/unit2",
+          "inherit": false,
+          "extraInterfaces": {
+              "xyz.openbmc_project.Inventory.Item": {
+                  "PrettyName": "Onboard Memory Power Control Device"
+              }
+          }
+      },
+      {
+          "inventoryPath": "/system/chassis/motherboard/dimm22/unit3",
+          "inherit": false,
+          "extraInterfaces": {
+              "xyz.openbmc_project.Inventory.Item": {
+                  "PrettyName": "Onboard Memory Power Management IC"
+              }
+          }
       }
     ],
     "/sys/bus/i2c/drivers/at24/514-0050/eeprom" :[
@@ -3296,6 +3719,24 @@
           "extraInterfaces": {
               "xyz.openbmc_project.Inventory.Item": {
                   "PrettyName": "DDR Memory Port"
+              }
+          }
+      },
+      {
+          "inventoryPath": "/system/chassis/motherboard/dimm23/unit2",
+          "inherit": false,
+          "extraInterfaces": {
+              "xyz.openbmc_project.Inventory.Item": {
+                  "PrettyName": "Onboard Memory Power Control Device"
+              }
+          }
+      },
+      {
+          "inventoryPath": "/system/chassis/motherboard/dimm23/unit3",
+          "inherit": false,
+          "extraInterfaces": {
+              "xyz.openbmc_project.Inventory.Item": {
+                  "PrettyName": "Onboard Memory Power Management IC"
               }
           }
       }
@@ -3333,6 +3774,24 @@
                   "PrettyName": "DDR Memory Port"
               }
           }
+      },
+      {
+          "inventoryPath": "/system/chassis/motherboard/dimm24/unit2",
+          "inherit": false,
+          "extraInterfaces": {
+              "xyz.openbmc_project.Inventory.Item": {
+                  "PrettyName": "Onboard Memory Power Control Device"
+              }
+          }
+      },
+      {
+          "inventoryPath": "/system/chassis/motherboard/dimm24/unit3",
+          "inherit": false,
+          "extraInterfaces": {
+              "xyz.openbmc_project.Inventory.Item": {
+                  "PrettyName": "Onboard Memory Power Management IC"
+              }
+          }
       }
     ],
     "/sys/bus/i2c/drivers/at24/611-0050/eeprom" :[
@@ -3366,6 +3825,24 @@
           "extraInterfaces": {
               "xyz.openbmc_project.Inventory.Item": {
                   "PrettyName": "DDR Memory Port"
+              }
+          }
+      },
+      {
+          "inventoryPath": "/system/chassis/motherboard/dimm25/unit2",
+          "inherit": false,
+          "extraInterfaces": {
+              "xyz.openbmc_project.Inventory.Item": {
+                  "PrettyName": "Onboard Memory Power Control Device"
+              }
+          }
+      },
+      {
+          "inventoryPath": "/system/chassis/motherboard/dimm25/unit3",
+          "inherit": false,
+          "extraInterfaces": {
+              "xyz.openbmc_project.Inventory.Item": {
+                  "PrettyName": "Onboard Memory Power Management IC"
               }
           }
       }
@@ -3403,6 +3880,24 @@
                   "PrettyName": "DDR Memory Port"
               }
           }
+      },
+      {
+          "inventoryPath": "/system/chassis/motherboard/dimm26/unit2",
+          "inherit": false,
+          "extraInterfaces": {
+              "xyz.openbmc_project.Inventory.Item": {
+                  "PrettyName": "Onboard Memory Power Control Device"
+              }
+          }
+      },
+      {
+          "inventoryPath": "/system/chassis/motherboard/dimm26/unit3",
+          "inherit": false,
+          "extraInterfaces": {
+              "xyz.openbmc_project.Inventory.Item": {
+                  "PrettyName": "Onboard Memory Power Management IC"
+              }
+          }
       }
     ],
     "/sys/bus/i2c/drivers/at24/617-0050/eeprom" :[
@@ -3436,6 +3931,24 @@
           "extraInterfaces": {
               "xyz.openbmc_project.Inventory.Item": {
                   "PrettyName": "DDR Memory Port"
+              }
+          }
+      },
+      {
+          "inventoryPath": "/system/chassis/motherboard/dimm27/unit2",
+          "inherit": false,
+          "extraInterfaces": {
+              "xyz.openbmc_project.Inventory.Item": {
+                  "PrettyName": "Onboard Memory Power Control Device"
+              }
+          }
+      },
+      {
+          "inventoryPath": "/system/chassis/motherboard/dimm27/unit3",
+          "inherit": false,
+          "extraInterfaces": {
+              "xyz.openbmc_project.Inventory.Item": {
+                  "PrettyName": "Onboard Memory Power Management IC"
               }
           }
       }
@@ -3473,6 +3986,24 @@
                   "PrettyName": "DDR Memory Port"
               }
           }
+      },
+      {
+          "inventoryPath": "/system/chassis/motherboard/dimm28/unit2",
+          "inherit": false,
+          "extraInterfaces": {
+              "xyz.openbmc_project.Inventory.Item": {
+                  "PrettyName": "Onboard Memory Power Control Device"
+              }
+          }
+      },
+      {
+          "inventoryPath": "/system/chassis/motherboard/dimm28/unit3",
+          "inherit": false,
+          "extraInterfaces": {
+              "xyz.openbmc_project.Inventory.Item": {
+                  "PrettyName": "Onboard Memory Power Management IC"
+              }
+          }
       }
     ],
     "/sys/bus/i2c/drivers/at24/610-0050/eeprom" :[
@@ -3506,6 +4037,24 @@
           "extraInterfaces": {
               "xyz.openbmc_project.Inventory.Item": {
                   "PrettyName": "DDR Memory Port"
+              }
+          }
+      },
+      {
+          "inventoryPath": "/system/chassis/motherboard/dimm29/unit2",
+          "inherit": false,
+          "extraInterfaces": {
+              "xyz.openbmc_project.Inventory.Item": {
+                  "PrettyName": "Onboard Memory Power Control Device"
+              }
+          }
+      },
+      {
+          "inventoryPath": "/system/chassis/motherboard/dimm29/unit3",
+          "inherit": false,
+          "extraInterfaces": {
+              "xyz.openbmc_project.Inventory.Item": {
+                  "PrettyName": "Onboard Memory Power Management IC"
               }
           }
       }
@@ -3543,6 +4092,24 @@
                   "PrettyName": "DDR Memory Port"
               }
           }
+      },
+      {
+          "inventoryPath": "/system/chassis/motherboard/dimm30/unit2",
+          "inherit": false,
+          "extraInterfaces": {
+              "xyz.openbmc_project.Inventory.Item": {
+                  "PrettyName": "Onboard Memory Power Control Device"
+              }
+          }
+      },
+      {
+          "inventoryPath": "/system/chassis/motherboard/dimm30/unit3",
+          "inherit": false,
+          "extraInterfaces": {
+              "xyz.openbmc_project.Inventory.Item": {
+                  "PrettyName": "Onboard Memory Power Management IC"
+              }
+          }
       }
     ],
     "/sys/bus/i2c/drivers/at24/603-0050/eeprom" :[
@@ -3576,6 +4143,24 @@
           "extraInterfaces": {
               "xyz.openbmc_project.Inventory.Item": {
                   "PrettyName": "DDR Memory Port"
+              }
+          }
+      },
+      {
+          "inventoryPath": "/system/chassis/motherboard/dimm31/unit2",
+          "inherit": false,
+          "extraInterfaces": {
+              "xyz.openbmc_project.Inventory.Item": {
+                  "PrettyName": "Onboard Memory Power Control Device"
+              }
+          }
+      },
+      {
+          "inventoryPath": "/system/chassis/motherboard/dimm31/unit3",
+          "inherit": false,
+          "extraInterfaces": {
+              "xyz.openbmc_project.Inventory.Item": {
+                  "PrettyName": "Onboard Memory Power Management IC"
               }
           }
       }
@@ -3613,6 +4198,24 @@
                   "PrettyName": "DDR Memory Port"
               }
           }
+      },
+      {
+          "inventoryPath": "/system/chassis/motherboard/dimm32/unit2",
+          "inherit": false,
+          "extraInterfaces": {
+              "xyz.openbmc_project.Inventory.Item": {
+                  "PrettyName": "Onboard Memory Power Control Device"
+              }
+          }
+      },
+      {
+          "inventoryPath": "/system/chassis/motherboard/dimm32/unit3",
+          "inherit": false,
+          "extraInterfaces": {
+              "xyz.openbmc_project.Inventory.Item": {
+                  "PrettyName": "Onboard Memory Power Management IC"
+              }
+          }
       }
     ],
     "/sys/bus/i2c/drivers/at24/811-0050/eeprom" :[
@@ -3646,6 +4249,24 @@
           "extraInterfaces": {
               "xyz.openbmc_project.Inventory.Item": {
                   "PrettyName": "DDR Memory Port"
+              }
+          }
+      },
+      {
+          "inventoryPath": "/system/chassis/motherboard/dimm33/unit2",
+          "inherit": false,
+          "extraInterfaces": {
+              "xyz.openbmc_project.Inventory.Item": {
+                  "PrettyName": "Onboard Memory Power Control Device"
+              }
+          }
+      },
+      {
+          "inventoryPath": "/system/chassis/motherboard/dimm33/unit3",
+          "inherit": false,
+          "extraInterfaces": {
+              "xyz.openbmc_project.Inventory.Item": {
+                  "PrettyName": "Onboard Memory Power Management IC"
               }
           }
       }
@@ -3683,6 +4304,24 @@
                   "PrettyName": "DDR Memory Port"
               }
           }
+      },
+      {
+          "inventoryPath": "/system/chassis/motherboard/dimm34/unit2",
+          "inherit": false,
+          "extraInterfaces": {
+              "xyz.openbmc_project.Inventory.Item": {
+                  "PrettyName": "Onboard Memory Power Control Device"
+              }
+          }
+      },
+      {
+          "inventoryPath": "/system/chassis/motherboard/dimm34/unit3",
+          "inherit": false,
+          "extraInterfaces": {
+              "xyz.openbmc_project.Inventory.Item": {
+                  "PrettyName": "Onboard Memory Power Management IC"
+              }
+          }
       }
     ],
     "/sys/bus/i2c/drivers/at24/817-0050/eeprom" :[
@@ -3716,6 +4355,24 @@
           "extraInterfaces": {
               "xyz.openbmc_project.Inventory.Item": {
                   "PrettyName": "DDR Memory Port"
+              }
+          }
+      },
+      {
+          "inventoryPath": "/system/chassis/motherboard/dimm35/unit2",
+          "inherit": false,
+          "extraInterfaces": {
+              "xyz.openbmc_project.Inventory.Item": {
+                  "PrettyName": "Onboard Memory Power Control Device"
+              }
+          }
+      },
+      {
+          "inventoryPath": "/system/chassis/motherboard/dimm35/unit3",
+          "inherit": false,
+          "extraInterfaces": {
+              "xyz.openbmc_project.Inventory.Item": {
+                  "PrettyName": "Onboard Memory Power Management IC"
               }
           }
       }
@@ -3753,6 +4410,24 @@
                   "PrettyName": "DDR Memory Port"
               }
           }
+      },
+      {
+          "inventoryPath": "/system/chassis/motherboard/dimm36/unit2",
+          "inherit": false,
+          "extraInterfaces": {
+              "xyz.openbmc_project.Inventory.Item": {
+                  "PrettyName": "Onboard Memory Power Control Device"
+              }
+          }
+      },
+      {
+          "inventoryPath": "/system/chassis/motherboard/dimm36/unit3",
+          "inherit": false,
+          "extraInterfaces": {
+              "xyz.openbmc_project.Inventory.Item": {
+                  "PrettyName": "Onboard Memory Power Management IC"
+              }
+          }
       }
     ],
     "/sys/bus/i2c/drivers/at24/810-0050/eeprom" :[
@@ -3786,6 +4461,24 @@
           "extraInterfaces": {
               "xyz.openbmc_project.Inventory.Item": {
                   "PrettyName": "DDR Memory Port"
+              }
+          }
+      },
+      {
+          "inventoryPath": "/system/chassis/motherboard/dimm37/unit2",
+          "inherit": false,
+          "extraInterfaces": {
+              "xyz.openbmc_project.Inventory.Item": {
+                  "PrettyName": "Onboard Memory Power Control Device"
+              }
+          }
+      },
+      {
+          "inventoryPath": "/system/chassis/motherboard/dimm37/unit3",
+          "inherit": false,
+          "extraInterfaces": {
+              "xyz.openbmc_project.Inventory.Item": {
+                  "PrettyName": "Onboard Memory Power Management IC"
               }
           }
       }
@@ -3823,6 +4516,24 @@
                   "PrettyName": "DDR Memory Port"
               }
           }
+      },
+      {
+          "inventoryPath": "/system/chassis/motherboard/dimm38/unit2",
+          "inherit": false,
+          "extraInterfaces": {
+              "xyz.openbmc_project.Inventory.Item": {
+                  "PrettyName": "Onboard Memory Power Control Device"
+              }
+          }
+      },
+      {
+          "inventoryPath": "/system/chassis/motherboard/dimm38/unit3",
+          "inherit": false,
+          "extraInterfaces": {
+              "xyz.openbmc_project.Inventory.Item": {
+                  "PrettyName": "Onboard Memory Power Management IC"
+              }
+          }
       }
     ],
     "/sys/bus/i2c/drivers/at24/803-0050/eeprom" :[
@@ -3856,6 +4567,24 @@
           "extraInterfaces": {
               "xyz.openbmc_project.Inventory.Item": {
                   "PrettyName": "DDR Memory Port"
+              }
+          }
+      },
+      {
+          "inventoryPath": "/system/chassis/motherboard/dimm39/unit2",
+          "inherit": false,
+          "extraInterfaces": {
+              "xyz.openbmc_project.Inventory.Item": {
+                  "PrettyName": "Onboard Memory Power Control Device"
+              }
+          }
+      },
+      {
+          "inventoryPath": "/system/chassis/motherboard/dimm39/unit3",
+          "inherit": false,
+          "extraInterfaces": {
+              "xyz.openbmc_project.Inventory.Item": {
+                  "PrettyName": "Onboard Memory Power Management IC"
               }
           }
       }
@@ -3893,6 +4622,24 @@
                   "PrettyName": "DDR Memory Port"
               }
           }
+      },
+      {
+          "inventoryPath": "/system/chassis/motherboard/dimm40/unit2",
+          "inherit": false,
+          "extraInterfaces": {
+              "xyz.openbmc_project.Inventory.Item": {
+                  "PrettyName": "Onboard Memory Power Control Device"
+              }
+          }
+      },
+      {
+          "inventoryPath": "/system/chassis/motherboard/dimm40/unit3",
+          "inherit": false,
+          "extraInterfaces": {
+              "xyz.openbmc_project.Inventory.Item": {
+                  "PrettyName": "Onboard Memory Power Management IC"
+              }
+          }
       }
     ],
     "/sys/bus/i2c/drivers/at24/700-0050/eeprom" :[
@@ -3926,6 +4673,24 @@
           "extraInterfaces": {
               "xyz.openbmc_project.Inventory.Item": {
                   "PrettyName": "DDR Memory Port"
+              }
+          }
+      },
+      {
+          "inventoryPath": "/system/chassis/motherboard/dimm41/unit2",
+          "inherit": false,
+          "extraInterfaces": {
+              "xyz.openbmc_project.Inventory.Item": {
+                  "PrettyName": "Onboard Memory Power Control Device"
+              }
+          }
+      },
+      {
+          "inventoryPath": "/system/chassis/motherboard/dimm41/unit3",
+          "inherit": false,
+          "extraInterfaces": {
+              "xyz.openbmc_project.Inventory.Item": {
+                  "PrettyName": "Onboard Memory Power Management IC"
               }
           }
       }
@@ -3963,6 +4728,24 @@
                   "PrettyName": "DDR Memory Port"
               }
           }
+      },
+      {
+          "inventoryPath": "/system/chassis/motherboard/dimm42/unit2",
+          "inherit": false,
+          "extraInterfaces": {
+              "xyz.openbmc_project.Inventory.Item": {
+                  "PrettyName": "Onboard Memory Power Control Device"
+              }
+          }
+      },
+      {
+          "inventoryPath": "/system/chassis/motherboard/dimm42/unit3",
+          "inherit": false,
+          "extraInterfaces": {
+              "xyz.openbmc_project.Inventory.Item": {
+                  "PrettyName": "Onboard Memory Power Management IC"
+              }
+          }
       }
     ],
     "/sys/bus/i2c/drivers/at24/712-0050/eeprom" :[
@@ -3996,6 +4779,24 @@
           "extraInterfaces": {
               "xyz.openbmc_project.Inventory.Item": {
                   "PrettyName": "DDR Memory Port"
+              }
+          }
+      },
+      {
+          "inventoryPath": "/system/chassis/motherboard/dimm43/unit2",
+          "inherit": false,
+          "extraInterfaces": {
+              "xyz.openbmc_project.Inventory.Item": {
+                  "PrettyName": "Onboard Memory Power Control Device"
+              }
+          }
+      },
+      {
+          "inventoryPath": "/system/chassis/motherboard/dimm43/unit3",
+          "inherit": false,
+          "extraInterfaces": {
+              "xyz.openbmc_project.Inventory.Item": {
+                  "PrettyName": "Onboard Memory Power Management IC"
               }
           }
       }
@@ -4033,6 +4834,24 @@
                   "PrettyName": "DDR Memory Port"
               }
           }
+      },
+      {
+          "inventoryPath": "/system/chassis/motherboard/dimm44/unit2",
+          "inherit": false,
+          "extraInterfaces": {
+              "xyz.openbmc_project.Inventory.Item": {
+                  "PrettyName": "Onboard Memory Power Control Device"
+              }
+          }
+      },
+      {
+          "inventoryPath": "/system/chassis/motherboard/dimm44/unit3",
+          "inherit": false,
+          "extraInterfaces": {
+              "xyz.openbmc_project.Inventory.Item": {
+                  "PrettyName": "Onboard Memory Power Management IC"
+              }
+          }
       }
     ],
     "/sys/bus/i2c/drivers/at24/713-0050/eeprom" :[
@@ -4066,6 +4885,24 @@
           "extraInterfaces": {
               "xyz.openbmc_project.Inventory.Item": {
                   "PrettyName": "DDR Memory Port"
+              }
+          }
+      },
+      {
+          "inventoryPath": "/system/chassis/motherboard/dimm45/unit2",
+          "inherit": false,
+          "extraInterfaces": {
+              "xyz.openbmc_project.Inventory.Item": {
+                  "PrettyName": "Onboard Memory Power Control Device"
+              }
+          }
+      },
+      {
+          "inventoryPath": "/system/chassis/motherboard/dimm45/unit3",
+          "inherit": false,
+          "extraInterfaces": {
+              "xyz.openbmc_project.Inventory.Item": {
+                  "PrettyName": "Onboard Memory Power Management IC"
               }
           }
       }
@@ -4103,6 +4940,24 @@
                   "PrettyName": "DDR Memory Port"
               }
           }
+      },
+      {
+          "inventoryPath": "/system/chassis/motherboard/dimm46/unit2",
+          "inherit": false,
+          "extraInterfaces": {
+              "xyz.openbmc_project.Inventory.Item": {
+                  "PrettyName": "Onboard Memory Power Control Device"
+              }
+          }
+      },
+      {
+          "inventoryPath": "/system/chassis/motherboard/dimm46/unit3",
+          "inherit": false,
+          "extraInterfaces": {
+              "xyz.openbmc_project.Inventory.Item": {
+                  "PrettyName": "Onboard Memory Power Management IC"
+              }
+          }
       }
     ],
     "/sys/bus/i2c/drivers/at24/714-0050/eeprom" :[
@@ -4136,6 +4991,24 @@
           "extraInterfaces": {
               "xyz.openbmc_project.Inventory.Item": {
                   "PrettyName": "DDR Memory Port"
+              }
+          }
+      },
+      {
+          "inventoryPath": "/system/chassis/motherboard/dimm47/unit2",
+          "inherit": false,
+          "extraInterfaces": {
+              "xyz.openbmc_project.Inventory.Item": {
+                  "PrettyName": "Onboard Memory Power Control Device"
+              }
+          }
+      },
+      {
+          "inventoryPath": "/system/chassis/motherboard/dimm47/unit3",
+          "inherit": false,
+          "extraInterfaces": {
+              "xyz.openbmc_project.Inventory.Item": {
+                  "PrettyName": "Onboard Memory Power Management IC"
               }
           }
       }
@@ -4173,6 +5046,24 @@
                   "PrettyName": "DDR Memory Port"
               }
           }
+      },
+      {
+          "inventoryPath": "/system/chassis/motherboard/dimm48/unit2",
+          "inherit": false,
+          "extraInterfaces": {
+              "xyz.openbmc_project.Inventory.Item": {
+                  "PrettyName": "Onboard Memory Power Control Device"
+              }
+          }
+      },
+      {
+          "inventoryPath": "/system/chassis/motherboard/dimm48/unit3",
+          "inherit": false,
+          "extraInterfaces": {
+              "xyz.openbmc_project.Inventory.Item": {
+                  "PrettyName": "Onboard Memory Power Management IC"
+              }
+          }
       }
     ],
     "/sys/bus/i2c/drivers/at24/217-0050/eeprom" :[
@@ -4206,6 +5097,24 @@
           "extraInterfaces": {
               "xyz.openbmc_project.Inventory.Item": {
                   "PrettyName": "DDR Memory Port"
+              }
+          }
+      },
+      {
+          "inventoryPath": "/system/chassis/motherboard/dimm49/unit2",
+          "inherit": false,
+          "extraInterfaces": {
+              "xyz.openbmc_project.Inventory.Item": {
+                  "PrettyName": "Onboard Memory Power Control Device"
+              }
+          }
+      },
+      {
+          "inventoryPath": "/system/chassis/motherboard/dimm49/unit3",
+          "inherit": false,
+          "extraInterfaces": {
+              "xyz.openbmc_project.Inventory.Item": {
+                  "PrettyName": "Onboard Memory Power Management IC"
               }
           }
       }
@@ -4243,6 +5152,24 @@
                   "PrettyName": "DDR Memory Port"
               }
           }
+      },
+      {
+          "inventoryPath": "/system/chassis/motherboard/dimm50/unit2",
+          "inherit": false,
+          "extraInterfaces": {
+              "xyz.openbmc_project.Inventory.Item": {
+                  "PrettyName": "Onboard Memory Power Control Device"
+              }
+          }
+      },
+      {
+          "inventoryPath": "/system/chassis/motherboard/dimm50/unit3",
+          "inherit": false,
+          "extraInterfaces": {
+              "xyz.openbmc_project.Inventory.Item": {
+                  "PrettyName": "Onboard Memory Power Management IC"
+              }
+          }
       }
     ],
     "/sys/bus/i2c/drivers/at24/215-0050/eeprom" :[
@@ -4276,6 +5203,24 @@
           "extraInterfaces": {
               "xyz.openbmc_project.Inventory.Item": {
                   "PrettyName": "DDR Memory Port"
+              }
+          }
+      },
+      {
+          "inventoryPath": "/system/chassis/motherboard/dimm51/unit2",
+          "inherit": false,
+          "extraInterfaces": {
+              "xyz.openbmc_project.Inventory.Item": {
+                  "PrettyName": "Onboard Memory Power Control Device"
+              }
+          }
+      },
+      {
+          "inventoryPath": "/system/chassis/motherboard/dimm51/unit3",
+          "inherit": false,
+          "extraInterfaces": {
+              "xyz.openbmc_project.Inventory.Item": {
+                  "PrettyName": "Onboard Memory Power Management IC"
               }
           }
       }
@@ -4313,6 +5258,24 @@
                   "PrettyName": "DDR Memory Port"
               }
           }
+      },
+      {
+          "inventoryPath": "/system/chassis/motherboard/dimm52/unit2",
+          "inherit": false,
+          "extraInterfaces": {
+              "xyz.openbmc_project.Inventory.Item": {
+                  "PrettyName": "Onboard Memory Power Control Device"
+              }
+          }
+      },
+      {
+          "inventoryPath": "/system/chassis/motherboard/dimm52/unit3",
+          "inherit": false,
+          "extraInterfaces": {
+              "xyz.openbmc_project.Inventory.Item": {
+                  "PrettyName": "Onboard Memory Power Management IC"
+              }
+          }
       }
     ],
     "/sys/bus/i2c/drivers/at24/210-0050/eeprom" :[
@@ -4346,6 +5309,24 @@
           "extraInterfaces": {
               "xyz.openbmc_project.Inventory.Item": {
                   "PrettyName": "DDR Memory Port"
+              }
+          }
+      },
+      {
+          "inventoryPath": "/system/chassis/motherboard/dimm53/unit2",
+          "inherit": false,
+          "extraInterfaces": {
+              "xyz.openbmc_project.Inventory.Item": {
+                  "PrettyName": "Onboard Memory Power Control Device"
+              }
+          }
+      },
+      {
+          "inventoryPath": "/system/chassis/motherboard/dimm53/unit3",
+          "inherit": false,
+          "extraInterfaces": {
+              "xyz.openbmc_project.Inventory.Item": {
+                  "PrettyName": "Onboard Memory Power Management IC"
               }
           }
       }
@@ -4383,6 +5364,24 @@
                   "PrettyName": "DDR Memory Port"
               }
           }
+      },
+      {
+          "inventoryPath": "/system/chassis/motherboard/dimm54/unit2",
+          "inherit": false,
+          "extraInterfaces": {
+              "xyz.openbmc_project.Inventory.Item": {
+                  "PrettyName": "Onboard Memory Power Control Device"
+              }
+          }
+      },
+      {
+          "inventoryPath": "/system/chassis/motherboard/dimm54/unit3",
+          "inherit": false,
+          "extraInterfaces": {
+              "xyz.openbmc_project.Inventory.Item": {
+                  "PrettyName": "Onboard Memory Power Management IC"
+              }
+          }
       }
     ],
     "/sys/bus/i2c/drivers/at24/202-0050/eeprom" :[
@@ -4416,6 +5415,24 @@
           "extraInterfaces": {
               "xyz.openbmc_project.Inventory.Item": {
                   "PrettyName": "DDR Memory Port"
+              }
+          }
+      },
+      {
+          "inventoryPath": "/system/chassis/motherboard/dimm55/unit2",
+          "inherit": false,
+          "extraInterfaces": {
+              "xyz.openbmc_project.Inventory.Item": {
+                  "PrettyName": "Onboard Memory Power Control Device"
+              }
+          }
+      },
+      {
+          "inventoryPath": "/system/chassis/motherboard/dimm55/unit3",
+          "inherit": false,
+          "extraInterfaces": {
+              "xyz.openbmc_project.Inventory.Item": {
+                  "PrettyName": "Onboard Memory Power Management IC"
               }
           }
       }
@@ -4453,6 +5470,24 @@
                   "PrettyName": "DDR Memory Port"
               }
           }
+      },
+      {
+          "inventoryPath": "/system/chassis/motherboard/dimm56/unit2",
+          "inherit": false,
+          "extraInterfaces": {
+              "xyz.openbmc_project.Inventory.Item": {
+                  "PrettyName": "Onboard Memory Power Control Device"
+              }
+          }
+      },
+      {
+          "inventoryPath": "/system/chassis/motherboard/dimm56/unit3",
+          "inherit": false,
+          "extraInterfaces": {
+              "xyz.openbmc_project.Inventory.Item": {
+                  "PrettyName": "Onboard Memory Power Management IC"
+              }
+          }
       }
     ],
     "/sys/bus/i2c/drivers/at24/101-0050/eeprom" :[
@@ -4486,6 +5521,24 @@
           "extraInterfaces": {
               "xyz.openbmc_project.Inventory.Item": {
                   "PrettyName": "DDR Memory Port"
+              }
+          }
+      },
+      {
+          "inventoryPath": "/system/chassis/motherboard/dimm57/unit2",
+          "inherit": false,
+          "extraInterfaces": {
+              "xyz.openbmc_project.Inventory.Item": {
+                  "PrettyName": "Onboard Memory Power Control Device"
+              }
+          }
+      },
+      {
+          "inventoryPath": "/system/chassis/motherboard/dimm57/unit3",
+          "inherit": false,
+          "extraInterfaces": {
+              "xyz.openbmc_project.Inventory.Item": {
+                  "PrettyName": "Onboard Memory Power Management IC"
               }
           }
       }
@@ -4523,6 +5576,24 @@
                   "PrettyName": "DDR Memory Port"
               }
           }
+      },
+      {
+          "inventoryPath": "/system/chassis/motherboard/dimm58/unit2",
+          "inherit": false,
+          "extraInterfaces": {
+              "xyz.openbmc_project.Inventory.Item": {
+                  "PrettyName": "Onboard Memory Power Control Device"
+              }
+          }
+      },
+      {
+          "inventoryPath": "/system/chassis/motherboard/dimm58/unit3",
+          "inherit": false,
+          "extraInterfaces": {
+              "xyz.openbmc_project.Inventory.Item": {
+                  "PrettyName": "Onboard Memory Power Management IC"
+              }
+          }
       }
     ],
     "/sys/bus/i2c/drivers/at24/112-0050/eeprom" :[
@@ -4556,6 +5627,24 @@
           "extraInterfaces": {
               "xyz.openbmc_project.Inventory.Item": {
                   "PrettyName": "DDR Memory Port"
+              }
+          }
+      },
+      {
+          "inventoryPath": "/system/chassis/motherboard/dimm59/unit2",
+          "inherit": false,
+          "extraInterfaces": {
+              "xyz.openbmc_project.Inventory.Item": {
+                  "PrettyName": "Onboard Memory Power Control Device"
+              }
+          }
+      },
+      {
+          "inventoryPath": "/system/chassis/motherboard/dimm59/unit3",
+          "inherit": false,
+          "extraInterfaces": {
+              "xyz.openbmc_project.Inventory.Item": {
+                  "PrettyName": "Onboard Memory Power Management IC"
               }
           }
       }
@@ -4593,6 +5682,24 @@
                   "PrettyName": "DDR Memory Port"
               }
           }
+      },
+      {
+          "inventoryPath": "/system/chassis/motherboard/dimm60/unit2",
+          "inherit": false,
+          "extraInterfaces": {
+              "xyz.openbmc_project.Inventory.Item": {
+                  "PrettyName": "Onboard Memory Power Control Device"
+              }
+          }
+      },
+      {
+          "inventoryPath": "/system/chassis/motherboard/dimm60/unit3",
+          "inherit": false,
+          "extraInterfaces": {
+              "xyz.openbmc_project.Inventory.Item": {
+                  "PrettyName": "Onboard Memory Power Management IC"
+              }
+          }
       }
     ],
     "/sys/bus/i2c/drivers/at24/115-0050/eeprom" :[
@@ -4626,6 +5733,24 @@
           "extraInterfaces": {
               "xyz.openbmc_project.Inventory.Item": {
                   "PrettyName": "DDR Memory Port"
+              }
+          }
+      },
+      {
+          "inventoryPath": "/system/chassis/motherboard/dimm61/unit2",
+          "inherit": false,
+          "extraInterfaces": {
+              "xyz.openbmc_project.Inventory.Item": {
+                  "PrettyName": "Onboard Memory Power Control Device"
+              }
+          }
+      },
+      {
+          "inventoryPath": "/system/chassis/motherboard/dimm61/unit3",
+          "inherit": false,
+          "extraInterfaces": {
+              "xyz.openbmc_project.Inventory.Item": {
+                  "PrettyName": "Onboard Memory Power Management IC"
               }
           }
       }
@@ -4663,6 +5788,24 @@
                   "PrettyName": "DDR Memory Port"
               }
           }
+      },
+      {
+          "inventoryPath": "/system/chassis/motherboard/dimm62/unit2",
+          "inherit": false,
+          "extraInterfaces": {
+              "xyz.openbmc_project.Inventory.Item": {
+                  "PrettyName": "Onboard Memory Power Control Device"
+              }
+          }
+      },
+      {
+          "inventoryPath": "/system/chassis/motherboard/dimm62/unit3",
+          "inherit": false,
+          "extraInterfaces": {
+              "xyz.openbmc_project.Inventory.Item": {
+                  "PrettyName": "Onboard Memory Power Management IC"
+              }
+          }
       }
     ],
     "/sys/bus/i2c/drivers/at24/114-0050/eeprom" :[
@@ -4696,6 +5839,24 @@
           "extraInterfaces": {
               "xyz.openbmc_project.Inventory.Item": {
                   "PrettyName": "DDR Memory Port"
+              }
+          }
+      },
+      {
+          "inventoryPath": "/system/chassis/motherboard/dimm63/unit2",
+          "inherit": false,
+          "extraInterfaces": {
+              "xyz.openbmc_project.Inventory.Item": {
+                  "PrettyName": "Onboard Memory Power Control Device"
+              }
+          }
+      },
+      {
+          "inventoryPath": "/system/chassis/motherboard/dimm63/unit3",
+          "inherit": false,
+          "extraInterfaces": {
+              "xyz.openbmc_project.Inventory.Item": {
+                  "PrettyName": "Onboard Memory Power Management IC"
               }
           }
       }
