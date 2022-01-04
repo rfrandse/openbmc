@@ -9,7 +9,7 @@ SRC_URI += "git://git@github.ibm.com/openbmc/webui-vue.git;nobranch=1;protocol=s
 SRCREV = "afd0590e8e6210efd7aa8ff3bb986be03450fe71"
 S = "${WORKDIR}/git"
 
-DEPENDS:prepend = "nodejs-native nlf-native "
+DEPENDS:prepend = "nodejs-native "
 
 # allarch is required because the files this recipe produces (html and
 # javascript) are valid for any target, regardless of architecture.  The allarch
@@ -47,9 +47,3 @@ do_install () {
    find ${D}${datadir}/www -type d -exec chmod a=rx,u+w '{}' +
 }
 
-do_find_node_licenses() {
-    cd ${S}
-    nlf -s detail > ${LICENSE_DIRECTORY}/${PN}/node-licenses
-}
-
-addtask find_node_licenses after do_compile before do_build
