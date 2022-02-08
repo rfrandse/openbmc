@@ -15,7 +15,7 @@ PR = "r1"
 PV = "0.1+git${SRCPV}"
 
 SRC_URI = "git://github.com/openbmc/openpower-hw-diags;branch=master;protocol=https"
-SRCREV = "08c21c256309cbfe10b2dd7c55b68e86fb8a4640"
+SRCREV = "76e52f6d8808e15f44c84a28e623cfed89654b5d"
 
 S = "${WORKDIR}/git"
 
@@ -24,7 +24,7 @@ inherit meson systemd
 SYSTEMD_SERVICE:${PN} = "attn_handler.service"
 
 DEPENDS = "boost libgpiod pdbg phosphor-logging sdbusplus openpower-libhei \
-           nlohmann-json valijson"
+           nlohmann-json valijson fmt"
 
 # This is required so that libhei is installed with the chip data files.
 RDEPENDS:${PN} += "openpower-libhei"
