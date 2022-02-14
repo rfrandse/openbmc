@@ -4,7 +4,7 @@ LICENSE = "Apache-2.0"
 LIC_FILES_CHKSUM = "file://LICENSE;md5=e3fc50a88d0a364313df4b21ef20c29e"
 
 SRC_URI = "git://github.com/ibm-openbmc/ibm-acf"
-SRCREV = "8bb8234a1c824c4aaf0a49edc923808116fa7308"
+SRCREV = "fa405fb00e3fb3d9a119e2bfde1b60a848cd1ef9"
 
 inherit meson
 #JSMN download required
@@ -26,6 +26,8 @@ do_install:append(){
                    ${D}/${servicedir}/ibm-acf/ibmacf-dev.key
     install -m 755 ${S}/subprojects/ce-login/p10-celogin-prod-pub.der \
                    ${D}/${servicedir}/ibm-acf/ibmacf-prod.key
+    install -m 755 ${S}/subprojects/ce-login/p10-celogin-prod-backup-pub.der \
+                   ${D}/${servicedir}/ibm-acf/ibmacf-prod-backup.key
 }
 
 
