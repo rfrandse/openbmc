@@ -1,6 +1,6 @@
-KBRANCH ?= "1020-dev-5.15"
+KBRANCH ?= "1020-dev-5.15-remove-everest-phr"
 LINUX_VERSION ?= "5.15.24"
 
-SRCREV="9d38f01a81086a4818059169c75947adc0934f0e"
+SRCREV="a1f08ad62cc581e5ba83b27c2078c5ab69c0ed22"
 
 require linux-aspeed.inc
