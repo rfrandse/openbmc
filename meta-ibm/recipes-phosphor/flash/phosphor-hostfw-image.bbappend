@@ -6,16 +6,16 @@ SRC_URI:append:p10bmc = " https://rchweb.rchland.ibm.com/afs/rchland/projects/es
 
 # P10 systems
 RELEASE:p10bmc ?= "fw1020"
-VERSION:p10bmc ?= "1020.2208.20220216a"
+VERSION:p10bmc ?= "1020.2210.20220302b"
 
 TARBALL_NAME:p10bmc ?= "obmc-phosphor-image-rainier.ext4.mmc.tar;name=rainier;subdir=rainier"
-SRC_URI[rainier.sha256sum] = "4a75534ac5f977f82cf438d6b43deb63b87b543f6c6c0b53563f3c80010e4ba0"
+SRC_URI[rainier.sha256sum] = "50f4a9bebd95c341417ae529d75c16c67049f5a306f0af66a40d6d1f9c7e562e"
 
 TARBALL_NAME_EVEREST:p10bmc ?= "obmc-phosphor-image-everest.ext4.mmc.tar;name=everest;subdir=everest"
-SRC_URI[everest.sha256sum] = "cd401092ef56743f05314427769544c7b9370cc19521fabd223a680ac6b35f94"
+SRC_URI[everest.sha256sum] = "fc41ab25ab868d72fd40b85c18adb9f5a197a954824321d4af93487168d65696"
 
 ELEMENTS_JSON:p10bmc ?= "host-fw-elements_lids.json;name=json"
-SRC_URI[json.sha256sum] = "8876249750165fc6480df41e1cb5631087dc2620890304599f79e85993b7f54e"
+SRC_URI[json.sha256sum] = "b339c5b81222c27571505ae2c39e438c1aa026af30f99d47827e4ff18386f4b2"
 
 # Tacoma
 RELEASE:witherspoon-tacoma ?= "fw1009"
