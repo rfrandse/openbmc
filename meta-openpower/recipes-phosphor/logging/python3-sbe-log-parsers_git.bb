@@ -10,6 +10,6 @@ LIC_FILES_CHKSUM = "file://LICENSE_PROLOG;md5=d8e5f403c98fd80dcea90b9cc8cd083c"
 
 S = "${WORKDIR}/git"
 SRC_URI += "git://git@github.com/open-power/sbe;branch="master-p10";protocol=ssh"
-SRCREV = "f8ee8cfad2cf2a53e78789633ddffc192f5a197e"
+SRCREV = "1eea8055311c6b90d65bc2598d38b33109a4e56b"
 
 inherit setuptools3
