@@ -1,25 +1,22 @@
-From c6a18a33f427b4d03464ee61a87097f52f4a091f Mon Sep 17 00:00:00 2001
-From: Santosh Puranik <santosh.puranik@in.ibm.com>
-Date: Tue, 31 Mar 2020 07:53:20 -0500
-Subject: [PATCH] Add VPD ECC Support
+From 78085e55eac22e69682abbcc9932afed0074410d Mon Sep 17 00:00:00 2001
+From: Alpana Kumari <alpankum@in.ibm.com>
+Date: Thu, 7 Apr 2022 07:35:51 -0500
+Subject: [PATCH] Create new ECC patch
 
-This commit adds the real VPD ECC support
-for IBM IPZ VPD. This is up and over a default
-implementation that does not check any VPD.
-
-Signed-off-by: Santosh Puranik <santosh.puranik@in.ibm.com>
-Change-Id: I12493fe4da55f7818c209c1481e88597df6cdb1e
+Signed-off-by: Alpana Kumari <alpankum@in.ibm.com>
+Change-Id: I23de0980269b8140b8349fa90c3da8fadab2d920
 ---
- vpdecc/vpdecc.c         | 141 +++++++++++++++++-
- vpdecc/vpdecc_support.c | 370 ++++++++++++++++++++++++++++++++++++++++++++----
- vpdecc/vpdecc_support.h | 108 ++++++++++++++
- 3 files changed, 589 insertions(+), 30 deletions(-)
+ vpdecc/vpdecc.c         | 141 ++++++++++++++-
+ vpdecc/vpdecc.h         |  30 ++--
+ vpdecc/vpdecc_support.c | 370 +++++++++++++++++++++++++++++++++++++---
+ vpdecc/vpdecc_support.h | 150 ++++++++++++++--
+ 4 files changed, 633 insertions(+), 58 deletions(-)
 
 diff --git a/vpdecc/vpdecc.c b/vpdecc/vpdecc.c
-index f7cf7eb..46f4404 100644
+index 64e2f54..46f4404 100644
 --- a/vpdecc/vpdecc.c
 +++ b/vpdecc/vpdecc.c
-@@ -1,21 +1,150 @@
+@@ -1,19 +1,150 @@
 -#include "vpdecc.h"
 +/******************************************************************************
 + *
@@ -53,7 +50,7 @@ index f7cf7eb..46f4404 100644
  int vpdecc_create_ecc(const unsigned char* data, size_t data_length,
                        unsigned char* ecc, size_t* ecc_buffersize)
  {
--    int i, vRet = 0;
+-    int i, vRet = -1;
 +   size_t i;
 +   int vPosition,vRet = 0;
 +   /********************************************/
@@ -76,7 +73,7 @@ index f7cf7eb..46f4404 100644
 +   /* to store the ecc                         */
 +   /********************************************/
  
--    memset(ecc, 0, *ecc_buffersize);
+-    return vRet;
 +   if(vEccLength > *ecc_buffersize)
 +   {
 +      return VPD_ECC_NOT_ENOUGH_BUFFER;
@@ -91,8 +88,7 @@ index f7cf7eb..46f4404 100644
 +   /* correct the errors. The bits used for one ecc-word are ditributed over the      */
 +   /* whole memory. Therefore it does not matter if a specific byte is not readable   */
 +   /***********************************************************************************/
- 
--    return vRet;
++
 +   memset(pRawDataBuffer,0x00,vBufferLength);
 +   memset(pDataBuffer,0x00,vBufferLength);
 +
@@ -135,7 +131,8 @@ index f7cf7eb..46f4404 100644
 +   unsigned char* pRawDataBuffer  = NULL;
 +   unsigned char* pDataBuffer  = NULL;
 +   unsigned char* pEccBuffer  = NULL;
-+
+ 
+-    return vRet;
 +   if(vEccLength > ecc_length)
 +   {
 +      return VPD_ECC_WRONG_ECC_SIZE;
@@ -145,8 +142,7 @@ index f7cf7eb..46f4404 100644
 +   pRawDataBuffer = (unsigned char*)malloc(vBufferLength);
 +   pDataBuffer = (unsigned char*)malloc(vBufferLength);
 +   pEccBuffer  = (unsigned char*)malloc(vEccLength);
- 
--    return vRet;
++
 +   memset(pRawDataBuffer,0x00,vBufferLength);
 +   memset(pDataBuffer,0x00,vBufferLength);
 +
@@ -176,6 +172,77 @@ index f7cf7eb..46f4404 100644
 +   return vRet;
  }
 +
+diff --git a/vpdecc/vpdecc.h b/vpdecc/vpdecc.h
+index 6d4175d..d6e4e2a 100644
+--- a/vpdecc/vpdecc.h
++++ b/vpdecc/vpdecc.h
+@@ -14,23 +14,22 @@
+  *
+  *****************************************************************************/
+ 
++
+ #ifndef _VPDECC_H_
+ #define _VPDECC_H_
+ 
+-#pragma GCC diagnostic ignored "-Wunused-variable"
+-#pragma GCC diagnostic ignored "-Wunused-parameter"
+-
+ #include <stdlib.h>
+ 
+ #define VPD_ECC_OK 0
+-#define VPD_ECC_NOT_ENOUGH_BUFFER 1
+-#define VPD_ECC_WRONG_ECC_SIZE 2
+-#define VPD_ECC_WRONG_BUFFER_SIZE 9
+-#define VPD_ECC_UNCORRECTABLE_DATA 90
+-#define VPD_ECC_CORRECTABLE_DATA 91
++#define VPD_ECC_NOT_ENOUGH_BUFFER   1
++#define VPD_ECC_WRONG_ECC_SIZE      2
++#define VPD_ECC_WRONG_BUFFER_SIZE   9
++#define VPD_ECC_UNCORRECTABLE_DATA  90
++#define VPD_ECC_CORRECTABLE_DATA    91
++
+ 
+ #ifdef __cplusplus
+-extern "C" {
++   extern "C" {
+ #endif
+ 
+ /* TODO  doxygen !!!!!!!! */
+@@ -47,7 +46,7 @@ extern "C" {
+ /* @param     vDataLength     In        should contain the length of the Data */
+ /*                                      in the buffer given to vData          */
+ /*                                                                            */
+-/* @param     pEcc            Out-Buffer after execution this will be the     */
++/* @param     pEcc            Out-Buffer after execution this will be the     */ 
+ /*                                      buffer for the calculated Ecc         */
+ /*                                                                            */
+ /* @param     pEccLenght      In/Out    In : size of buffer                   */
+@@ -73,18 +72,21 @@ int vpdecc_create_ecc(const unsigned char* data, size_t datalength,
+ /* @param     vDataLength     In        should contain the length of the Data */
+ /*                                      in the buffer given to vData          */
+ /*                                                                            */
+-/* @param     pEcc            In-Buffer should contain the Ecc for the data   */
++/* @param     pEcc            In-Buffer should contain the Ecc for the data   */ 
+ /*                                                                            */
+ /*                                                                            */
+-/* @param     vEccLenght      In        should contain the length of the Ecc  */
++/* @param     vEccLenght      In        should contain the length of the Ecc  */ 
+ /*                                                                            */
+ /* @return Error returncode                                                   */
+ /******************************************************************************/
+ int vpdecc_check_data(unsigned char* data, size_t data_length,
+                       const unsigned char* ecc, size_t ecc_length);
+ 
++
++
++
+ #ifdef __cplusplus
+-} /* end extern "C" */
++   } /* end extern "C" */
+ #endif
+ 
+-#endif /* endif _VPDECC_H_ */
++#endif  /* endif _VPDECC_H_ */
 diff --git a/vpdecc/vpdecc_support.c b/vpdecc/vpdecc_support.c
 index 674f236..8bad113 100644
 --- a/vpdecc/vpdecc_support.c
@@ -601,10 +668,10 @@ index 674f236..8bad113 100644
  }
 +
 diff --git a/vpdecc/vpdecc_support.h b/vpdecc/vpdecc_support.h
-index 6f71c03..37276d6 100644
+index 6f71c03..2bfe6b9 100644
 --- a/vpdecc/vpdecc_support.h
 +++ b/vpdecc/vpdecc_support.h
-@@ -1,10 +1,56 @@
+@@ -1,45 +1,165 @@
 +/******************************************************************************
 + *
 + * IBM Confidential
@@ -621,16 +688,17 @@ index 6f71c03..37276d6 100644
 + *
 + *****************************************************************************/
 +
++
 +#ifndef _VPDECC_SUPPORT_H_
 +#define _VPDECC_SUPPORT_H_
 +
  #include "vpdecc.h"
  
-+#define VPD_ECC_DATA_BIT_OFFSET 11
-+#define VPD_ECC_ECC_BIT_OFFSET 11
++#define VPD_ECC_DATA_BIT_OFFSET  11
++#define VPD_ECC_ECC_BIT_OFFSET   11
 +
 +#ifdef __cplusplus
-+extern "C" {
++   extern "C" {
 +#endif
 +
 +/******************************************************************************/
@@ -643,6 +711,7 @@ index 6f71c03..37276d6 100644
  /******************************************************************************/
  unsigned char seepromGetEcc(const unsigned char* data);
  
++
  /******************************************************************************/
  /* seepromScramble                                                            */
 +/*                                                                            */
@@ -660,9 +729,14 @@ index 6f71c03..37276d6 100644
 +/* @return none                                                               */
  /******************************************************************************/
  
- int seepromScramble(const int bitOffset, const unsigned char* cleanData,
-@@ -12,12 +58,39 @@ int seepromScramble(const int bitOffset, const unsigned char* cleanData,
-                     size_t scrambledSize);
+-int seepromScramble(const int bitOffset, const unsigned char* cleanData,
+-                    size_t cleanSize, unsigned char* scrambledData,
+-                    size_t scrambledSize);
++int seepromScramble(const int   bitOffset,
++                     const unsigned char* cleanData,
++                     size_t cleanSize,
++                     unsigned char* scrambledData,
++                     size_t scrambledSize);
  
  /******************************************************************************/
 +/* seepromUnscramble                                                          */
@@ -681,9 +755,14 @@ index 6f71c03..37276d6 100644
 +/* @param numOfWord Size of out-buffer                                        */
 +/* @return none                                                               */
  /******************************************************************************/
- int seepromUnscramble(const int bitOffset, const unsigned char* scrambledData,
-                       size_t scrambledSize, unsigned char* cleanData,
-                       size_t cleanSize);
+-int seepromUnscramble(const int bitOffset, const unsigned char* scrambledData,
+-                      size_t scrambledSize, unsigned char* cleanData,
+-                      size_t cleanSize);
++int seepromUnscramble(const int   bitOffset,
++                        const unsigned char* scrambledData,
++                        size_t scrambledSize,
++                        unsigned char* cleanData,
++                        size_t cleanSize);
  
  /******************************************************************************/
 +/* seepromGenCsDecode                                                         */
@@ -699,9 +778,15 @@ index 6f71c03..37276d6 100644
 +/* @return Bit position of the Bit to be corrected                            */
 +/*         if 0x0 syndrom not found in csdSyndroms => uncorrectable           */
  /******************************************************************************/
- void seepromGenCsDecode(const unsigned char numBits,
-                         const unsigned char syndrom,
-@@ -26,20 +99,55 @@ void seepromGenCsDecode(const unsigned char numBits,
+-void seepromGenCsDecode(const unsigned char numBits,
+-                        const unsigned char syndrom,
+-                        const unsigned char* csdSyndroms,
+-                        unsigned char* vResult);
++void seepromGenCsDecode(const unsigned char  numBits,
++                                 const unsigned char  syndrom,
++                                 const unsigned char* csdSyndroms,
++                                       unsigned char* vResult);
++
  
  /******************************************************************************/
  /* seepromGenerateCheckSyndromDecode                                          */
@@ -713,9 +798,13 @@ index 6f71c03..37276d6 100644
 +/* @param csdEcc  Bit position of Bit to be corrected if valid ECC syndrom    */
 +/* @return none                                                               */
  /******************************************************************************/
- void seepromGenerateCheckSyndromDecode(const unsigned char checkSyndrom,
-                                        unsigned char* csdData,
-                                        unsigned char* csdEcc);
+-void seepromGenerateCheckSyndromDecode(const unsigned char checkSyndrom,
+-                                       unsigned char* csdData,
+-                                       unsigned char* csdEcc);
++void seepromGenerateCheckSyndromDecode(const unsigned char  checkSyndrom,
++                                             unsigned char* csdData,
++                                             unsigned char* csdEcc);
++
  
  /******************************************************************************/
 +/* seepromEccCheck                                                            */
@@ -726,8 +815,10 @@ index 6f71c03..37276d6 100644
 +/* @param numOfWord Length of both In-Buffers                                 */
 +/* @return Error returncode                                                   */
  /******************************************************************************/
- int seepromEccCheck(unsigned char* vData, unsigned char* vEcc,
-                     size_t numOfDataBytes);
+-int seepromEccCheck(unsigned char* vData, unsigned char* vEcc,
+-                    size_t numOfDataBytes);
++int seepromEccCheck(unsigned char* vData, unsigned char* vEcc, size_t numOfDataBytes);
++
  
  /******************************************************************************/
 +/* seepromCheckData  (for 2K SEEPROMs only)                                   */
@@ -739,6 +830,7 @@ index 6f71c03..37276d6 100644
  /******************************************************************************/
  /*int seepromCheckData(unsigned char* seepromData);*/
  
++
  /******************************************************************************/
 +/* seepromCreateEcc (for 2K SEEPROMs only)                                    */
 +/*                                                                            */
@@ -752,11 +844,14 @@ index 6f71c03..37276d6 100644
  /******************************************************************************/
  /*int seepromCreateEcc(unsigned char* seepromData);*/
 +
++
++
++
 +#ifdef __cplusplus
-+} /* end extern "C" */
++   } /* end extern "C" */
 +#endif
 +
-+#endif /* endif _PXESCSEEPROMSUPPORT_H_ */
++#endif  /* endif _PXESCSEEPROMSUPPORT_H_ */
 -- 
-2.9.3
+2.17.1
 
