@@ -6,13 +6,13 @@ SRC_URI:append:p10bmc = " https://rchweb.rchland.ibm.com/afs/rchland/projects/es
 
 # P10 systems
 RELEASE:p10bmc ?= "fw1020"
-VERSION:p10bmc ?= "1020.2216.20220415a"
+VERSION:p10bmc ?= "1020.2216.20220420a"
 
 TARBALL_NAME:p10bmc ?= "obmc-phosphor-image-rainier.ext4.mmc.tar;name=rainier;subdir=rainier"
-SRC_URI[rainier.sha256sum] = "9a5f7c25fd4497a55a7a612e9556a3061bd6764ee991f3a4336cb869f3cbeb79"
+SRC_URI[rainier.sha256sum] = "520b7130f029d66f216ff7c3308153d07ca0eee8ea7178b80c94deed63a23769"
 
 TARBALL_NAME_EVEREST:p10bmc ?= "obmc-phosphor-image-everest.ext4.mmc.tar;name=everest;subdir=everest"
-SRC_URI[everest.sha256sum] = "0a40d45da6e4d3f6fa6ed42dda22ef0b951445c7d6d7cb40d97cf0be03020836"
+SRC_URI[everest.sha256sum] = "392a46e67c1f20ce3e73f31a4c361acbf92cde654d4e873aae040d2fa5eaa405"
 
 ELEMENTS_JSON:p10bmc ?= "host-fw-elements_lids.json;name=json"
 SRC_URI[json.sha256sum] = "3a1cef64f20dd2be9c7db4a872acc6ef91737eec1c858179b7f379effb89688f"
