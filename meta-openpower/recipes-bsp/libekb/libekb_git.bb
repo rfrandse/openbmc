@@ -17,7 +17,7 @@ inherit autotools \
 
 SRCREV_FORMAT = "libekb_ekb"
 
-SRCREV_libekb = "c8f6afece1da20f9753fb4f25e5c665059573338"
+SRCREV_libekb = "c1164d107c58a9a6d6bb6bf88e7126ad7ae919fa"
 SRCREV_ekb = "${EKB_REV}"
 
 SRC_URI = "git://git@github.com/open-power/libekb_p10;branch="main";name=libekb \
