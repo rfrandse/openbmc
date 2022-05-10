@@ -40,7 +40,7 @@ do_compile:prepend:p10bmc() {
 
     # Create the squashfs in the ${B} directory since it gets cleaned on every
     # run, otherwise the mksquashfs command will duplicate the content.
-    mksquashfs ${B}/squashfs-root-combined ${B}/image-hostfw -all-root
+    mksquashfs ${B}/squashfs-root-combined ${B}/image-hostfw -all-root -no-xattrs -noI -mkfs-time 0
     install -m 0440 ${B}/image-hostfw ${S}/image-hostfw
 }
 
