@@ -1,4 +1,4 @@
-SIMICS_VERSION = "6.0.103"
+SIMICS_VERSION = "6.0.126"
 
 PV = "${SIMICS_VERSION}+git${SRCPV}"
 LICENSE = "Proprietary"
