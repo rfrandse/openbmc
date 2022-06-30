@@ -2,20 +2,20 @@ HOST_FW_LICENSE = "Proprietary"
 
 SRC_URI = "https://rchweb.rchland.ibm.com/afs/rchland/projects/esw/${RELEASE}/Builds/${VERSION}/images/lab/${TARBALL_NAME}"
 SRC_URI:append:p10bmc = " https://rchweb.rchland.ibm.com/afs/rchland/projects/esw/${RELEASE}/Builds/${VERSION}/images/lab/${TARBALL_NAME_EVEREST}"
-SRC_URI:append:p10bmc = " https://rchweb.rchland.ibm.com/afs/rchland/projects/esw/${RELEASE}/Builds/${VERSION}/ebmc-pkg/staging-dir/host-fw-elements/${ELEMENTS_JSON}"
+SRC_URI:append:p10bmc = " https://rchweb.rchland.ibm.com/afs/rchland/projects/esw/${RELEASE}/Builds/${VERSION}/ebmc-pkg/staging-dir/hf-elems-lid-jsons/${ELEMENTS_JSON}"
 
 # P10 systems
 RELEASE:p10bmc ?= "fw1020"
-VERSION:p10bmc ?= "1020.2224.20220607a"
+VERSION:p10bmc ?= "1020.2226.20220628b"
 
 TARBALL_NAME:p10bmc ?= "obmc-phosphor-image-rainier.ext4.mmc.tar;name=rainier;subdir=rainier"
-SRC_URI[rainier.sha256sum] = "32fddd118398cce4828e0dfa69df8d7f0b64910992904cc0b40299ca199c0f59"
+SRC_URI[rainier.sha256sum] = "047caa7a5184aa1bfd8aa1db5409c66e26ca61e6449c825af1ada1368a015b18"
 
 TARBALL_NAME_EVEREST:p10bmc ?= "obmc-phosphor-image-everest.ext4.mmc.tar;name=everest;subdir=everest"
-SRC_URI[everest.sha256sum] = "dd0714be3dff693adfa9de1c6f1b7fbaeee36a7b1f940adc78d8279bb9f96b4c"
+SRC_URI[everest.sha256sum] = "33b2bcea5de4c9ef5edab9a8f1c789f65e3ea6dbf636e13d557f62c81df83aa8"
 
 ELEMENTS_JSON:p10bmc ?= "host-fw-elements_lids.json;name=json"
-SRC_URI[json.sha256sum] = "3a1cef64f20dd2be9c7db4a872acc6ef91737eec1c858179b7f379effb89688f"
+SRC_URI[json.sha256sum] = "63c92f84915bcea0b916a417c0ee19b42fb38ca5aae8112e53bf0466ba849a44"
 
 # Tacoma
 RELEASE:witherspoon-tacoma ?= "fw1009"
